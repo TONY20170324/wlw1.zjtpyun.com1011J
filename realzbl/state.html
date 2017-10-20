@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+
+
+
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <!-- boot -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/layout2.css">
+    <link rel="stylesheet" href="css/ui-dialog.css" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src=" js/jquery-migrate.js"></script>
+    <script type="text/javascript" src="js/top.core.js"></script>
+    <script type="text/javascript" src="js/top.ajax.js"></script>
+    <script type="text/javascript" src="js/top.showpage.js"></script>
+    <script type="text/javascript" src="js/am.js"></script>
+    <script src="js/dialog-plus.js"></script>
+    <script type="text/javascript" src="js/jquery.toptab.js"></script>
+    <script type="text/javascript" src="js/dateutil.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div class="sa-lay">
+            <a class="logo" href="/company_home">
+                <img src="../common/picture/default_logo.png" alt="" style="max-width:186px;height:50px;">
+            </a>
+            <ul class="hlist" id="header-nav">
+                <li class="active">
+                    <a href='../realtime.html' target='_top'><i class='icon icon-data-chart'></i> 数据展示</a>
+                </li>
+                <li>
+                    <a href='../analysisQuery.html' target='_top'><i class='icon icon-note'></i> 统计分析</a>
+                </li>
+                <li>
+                    <a href='../environment.html' target='_top'><i class='icon icon-arrows'></i> 环境调控</a>
+                </li>
+                <li>
+                    <a href='../center.html' target='_top'><i class='icon icon-users'></i> 用户中心</a>
+                </li>
+                <li>
+                    <a href='../projectInfo.html' target='_top'><i class='icon icon-comment-o'></i> 项目信息</a>
+                </li>
+
+            </ul>
+            <ul class="hlist" id="header-btns">
+                <li>
+                    <a class="icon i2 icon-question-circle" title="帮助" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-info-circle" title="关于" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-power-off" title="退出" href="/user/vali/logout"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="neck-box">
+        <div class="sa-lay">
+            <ul class="hlist fl" id="data-menu">
+                <li>
+                    <a href='../realtime.html' target='_top' class="tab-brown"><i
+                            class='icon i20 icon-02'></i> 土壤类</a>
+                </li>
+                <li>
+                    <a href='/data/realqxl' target='_top' class="tab-orange"><i
+                            class='icon icon-01'></i> 气象类</a>
+                </li>
+                <li>
+                    <a href='/data/realszl' target='_top' class="tab-blue"><i
+                            class='icon i20 icon-03'></i> 水质类</a>
+                </li>
+                <li>
+                    <a href='/data/realzwsl' target='_top' class="tab-yellow"><i
+                            class='icon i20 icon-04'></i> 作物生理</a>
+                </li>
+                <li class="active">
+                    <a href='picture.html' target='_top' class="tab-green"><i
+                            class='icon i20 icon-05'></i> 植保类</a>
+                </li>
+                <li>
+                    <a href='/data/realzwtx' target='_top' class="tab-green2"><i
+                            class='icon i20 icon-06'></i> 作物照片</a>
+                </li>
+                <li>
+                    <a href='../realspjk.html' target='_top' class="tab-blue2"><i
+                            class='icon i20 icon-07'></i> 视频监控</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="offcanvas">
+        <div class="sa-lay">
+            <!-- e -->
+
+            <div class="sa-panel sa-responsive fl" style="width:1048px;">
+                <div class="sa-header">
+                    <div class="sa-header-con">
+                        <!-- header 内容 -->
+                        <ul class="sa-nav">
+                            <li>
+                                <a href="javascript:void(0)" data-toggle="back" class="sa-back" data-role='back'></a>
+                            </li>
+                            <li><a href="javascript:void(0)" class="sa-tab on">状态</a></li>
+                        </ul>
+                    </div>
+                    <div class="sa-header-right">
+                        <div class="sa-nav-btns">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="sa-content">
+                    <div class="sa-con-inner">
+                        <div class="sa-inner-content" style="">
+                            <!-- s -->
+                            <!-- 内容区域 -->
+                            <!-- demo for 状态 -->
+                            <div class="state-main">
+                                <ul class="state-data">
+                                    <li class="state-1">
+                                        <div class="state-name">
+
+
+
+                                            光控模式
+
+
+
+                                        </div>
+                                        <div class="state-value">
+
+
+
+
+
+                                            白天
+
+
+
+
+
+                                        </div>
+                                    </li>
+                                    <li class="state-2">
+                                        <div class="state-name">虫子数量</div>
+                                        <div class="state-value">0</div>
+                                    </li>
+                                    <li class="state-3">
+                                        <div class="state-name">当前仓号</div>
+                                        <div class="state-value">2</div>
+                                    </li>
+                                    <li class="state-4">
+                                        <div class="state-name">天气</div>
+                                        <div class="state-value">
+
+
+
+                                            雨天
+
+                                        </div>
+                                    </li>
+                                    <li class="state-5">
+                                        <div class="state-name">GPS</div>
+                                        <div class="state-value" id="longitude_latitude">
+
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <div class="s-warn clearfix">
+                                    <h4><i class="sa sa-warning"></i> <span class="warn-tt">警告信息(最近七天)</span></h4>
+                                    <table class="table va-table" id="alarm_data">
+                                        <thead>
+                                            <tr>
+                                                <th>时间</th>
+                                                <th>设备名称</th>
+                                                <th>内容</th>
+                                                <th>处理状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <div class="pagination" id="pagination" />
+                                                    <div class="clearfix"></div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+
+                                </div>
+                            </div>
+
+                            <!-- end demo for 状态 -->
+                            <!-- e s -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sa-footer">
+                    <div class="sa-footer-con"></div>
+                    <div class="sa-footer-right"></div>
+                </div>
+            </div>
+
+            <!-- end e -->
+
+
+
+
+
+            <div class="sa-sidemenu fr">
+                <div class="sa-sm-header">
+
+                    <small>虫情测报灯20</small>
+                </div>
+                <div class="sa-sm-content">
+                    <ul>
+                        <li>
+                            <a href="picture.html"><i
+                        class="sa sa-pic"></i><span>图像</span></a>
+                        </li>
+                        <li>
+                            <a class="active" href="state.html"><i
+                        class="sa sa-eyes"></i><span>状态</span></a>
+                        </li>
+                        <li>
+                            <a href="take.html">
+                                <i class="sa sa-photo"></i><span>拍一张</span></a>
+                        </li>
+                        <li>
+                            <a href="set.html"><i
+                                class="sa sa-cog"></i><span>设置</span></a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div id="footer">
+
+    </div>
+
+    <script type="text/javascript">
+        AM.ready("init2", function() {})
+
+        jQuery(function() {
+            var $longitude = 120.219376;
+            $h = parseInt($longitude);
+            $m = parseInt(($longitude - $h) * 60);
+            $s = parseInt((($longitude - $h) * 60 - $m) * 60);
+
+            var $latitude = 30.259245;
+            $hh = parseInt($latitude);
+            $mm = parseInt(($latitude - $hh) * 60);
+            $ss = parseInt((($latitude - $hh) * 60 - $mm) * 60);
+
+            $('#longitude_latitude').html($h + "°" + $m + "′" + $s + "″" + "<br/>" + $hh + "°" + $mm + "′" + $ss + "″");
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        $(function() {
+            $('#alarm_data').toptab({
+                listURL: '/insect/alarm/list/ajax_list',
+                customBtn: true,
+                checkBox: false,
+                delBtn: false,
+                win_fancybox: [],
+                bodyElement: '#alarm_data tbody',
+                pageContainer: 'pagination',
+                searchElement: '#mSearch',
+                searchCallback: function() {
+                    return {
+                        pageNo: 1,
+                        pageSize: 10,
+                        device_id: 35643,
+                        beforDay: 7
+                    };
+                },
+                callback: function($list, pageNo, pageSize) {
+                    var $trs = [];
+                    var $len = $list.length;
+                    if ($len > 0) {
+                        for (var i = 0, j = $len; i < j; i++) {
+                            var $tr = $("<tr id='" + $list[i].cqDevice.deviceId + "'></tr>");
+                            $tr.append("<td>" + timeStamp2String($list[i].alarmTime + "000") + "</td>");
+                            $tr.append("<td>" + $list[i].cqDevice.device.deviceName + "</td>");
+                            $tr.append("<td>" + getAlarm($list[i].alarmTypeId, $list[i].alarmSign) + "</td>");
+                            $tr.append("<td>" + (($list[i].isProcess == 0) ? "已处理" : "未处理") + "</td>");
+                            $trs.push($tr);
+                        }
+                    } else {
+                        $trs.push("<tr><td colspan='4'>无相关数据</td></tr>");
+                    }
+                    return $trs;
+                }
+            });
+        });
+
+
+        function getAlarm($alarm_type_id, $alarm_sign) {
+            //        "杀虫仓", "烘干仓", "转仓", "转仓零位",
+            //                "加热管", "雨控电路", "光控探头", "灯管", "数虫灯电路", "流量不足", "低电量", "GPS移位"
+
+            switch ($alarm_type_id) {
+                case 1:
+                    return $alarm_sign ? "杀虫仓异常" : "杀虫仓恢复正常";
+                    break;
+                case 2:
+                    return $alarm_sign ? "烘干仓异常" : "烘干仓恢复正常";
+                    break;
+                case 3:
+                    return $alarm_sign ? "转仓异常" : "转仓恢复正常";
+                    break;
+                case 4:
+                    return $alarm_sign ? "转仓零位错误" : "转仓零位恢复正常";
+                    break;
+                case 5:
+                    return $alarm_sign ? "加热管异常" : "加热管恢复正常";
+                    break;
+                case 6:
+                    return $alarm_sign ? "雨控电路异常" : "雨控电路恢复正常";
+                    break;
+                case 7:
+                    return $alarm_sign ? "光控探头异常" : "光控探头恢复正常";
+                    break;
+                case 8:
+                    return $alarm_sign ? "灯管状态异常" : "灯管状态恢复正常";
+                    break;
+                case 9:
+                    return $alarm_sign ? "数虫灯电路异常" : "数虫灯电路恢复正常";
+                    break;
+                case 10:
+                    return "流量报警";
+                    break;
+                case 11:
+                    return "电量报警";
+                    break;
+                case 12:
+                    return "GPS移位异常";
+                default:
+                    return "";
+                    break;
+            }
+        }
+    </script>
+</body>

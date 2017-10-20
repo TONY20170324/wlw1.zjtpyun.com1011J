@@ -1,0 +1,838 @@
+﻿<!DOCTYPE html>
+
+
+<html lang="zh-cn">
+
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>土壤类 | 数据展示 | 农业物联网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- for 360-->
+    <meta name="renderer" content="webkit">
+    <!-- boot-->
+    <link rel="stylesheet" type="text/css" href="common/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="common/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="common/css/layout.css">-->
+    <link rel="stylesheet" type="text/css" href="common/css/layout2.css">
+    <link rel="stylesheet" href="components/realtime/css/realtime.css">
+    <script type="text/javascript" src="common/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="common/js/jquery-migrate.js"></script>
+    <style type="text/css">
+        .content-box {
+            padding: 9px 0 0;
+            color: #000;
+            margin-bottom: 10px;
+            text-align: center;
+            border: solid 1px #99cc50;
+            background-color: #fff;
+            width: 300px;
+        }
+
+        .content-box:hover {
+            color: #000;
+        }
+
+        .content-box h4 {
+            color: #333;
+        }
+
+        .content-box .valgreen {
+            color: #2f7d00;
+        }
+
+        .content-box:hover .valgreen,
+        .content-box:hover .valred,
+        .content-box:hover .vargrey {
+            color: #006dcc;
+        }
+
+        .content-box .valred {
+            color: #ff0000;
+        }
+
+        .content-box .vargrey {
+            color: #666666;
+        }
+
+        .content-box h5 {
+            height: 20px;
+            color: #999;
+        }
+
+        span.device-infor {
+            display: block;
+            background-color: #d8ecbc;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            padding: 0 10px;
+        }
+
+        span.device-infor img {
+            vertical-align: middle;
+            width: 18px;
+            height: 12px;
+            margin: 5px 0;
+        }
+
+        span.chart-title {
+            display: block;
+            margin: 10px 0 0;
+        }
+    </style>
+
+    <style type="text/css">
+        /*.content-box {*/
+        /*margin-bottom: 20px;*/
+        /*text-align: center;*/
+        /*padding: 5px 0 0;*/
+        /*}*/
+        /*.content-box img {*/
+        /*width: 100px;*/
+        /*height: 100px;*/
+        /*}*/
+
+        form.form-box-set {
+            background-color: #d8ecbc;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            margin: 0;
+            padding: 8px 0 8px;
+            font-size: 12px;
+        }
+
+        /*add20150128*/
+
+        form.form-box {
+            margin: 4px 20px;
+        }
+
+        /*modify20150128*/
+
+        .form-horizontal .control-label {
+            float: left;
+            width: 120px;
+            padding-top: 5px;
+            text-align: right;
+            font-size: 14px;
+            font-weight: normal;
+            margin-right: 20px;
+        }
+
+        .form-horizontal .control-group {
+            margin-bottom: 10px;
+        }
+
+        /*.content-box h4, .content-box h5{margin:5px 0;}*/
+        /*.content-box h4 {*/
+        /*color: #2f7d00;*/
+        /*}*/
+        /*.content-box h5 {*/
+        /*color: #82c02a;*/
+        /*}*/
+
+        .content-box input[type="text"] {
+            border: solid 1px #bfbfbf;
+            padding: 0 6px;
+            background-color: #eee;
+        }
+
+        /*.alarmMobile{ font-size: 12px;}*/
+        /*.delMobile{color:red; cursor: pointer;}*/
+    </style>
+    <script type="text/javascript">
+        var branch = 2;
+    </script>
+
+<body data-menubar="true">
+
+
+<script type="text/javascript" src="common/js/am.js"></script>
+
+<script src="common/js/cookie.js"></script>
+
+<div id="menubar" class="menubar-inverse animate">
+    <div class="menubar-scroll-panel" style="height:100%; overflow:hidden;">
+        <div class="bg-mask"></div>
+        <ul id="main-menu">
+            <li class="gui-folder">
+                <div class="gui-icon">
+                    <i class="fa fa-map-marker"></i>基地
+                </div>
+                <span class=" title m-header"><i class="fa fa-map-marker"></i> 基地管理</span>
+                <div class="nano">
+                    <ol id="stationList">
+                    </ol>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    //var stnId;//站点id
+    //var terId;//终端id
+    var stationList = new Array(); //站点列表
+    //判断sesson是否为空，
+    //如果为空发送ajax请求
+    $(function () {
+
+        getStationAjax();
+        //        }
+    })
+
+    //通过ajax请求获得站点信息,同步，无返回值
+    function getStationAjax() {
+        //获得staionId
+        //获得unitId
+
+        var jdId = "null";
+        if (jdId == "null") {
+            jdId = "";
+        }
+        var unitId = getCookie("unitId");
+        if (unitId == undefined || "" == unitId) {
+            unitId = "";
+        }
+        $.ajax({
+            type: "GET",
+            url: '/siteAjax?station=' + jdId + '&unitId=' + unitId,
+            dataType: "json",
+            async: false,
+            cache: false,
+            success: function (data) {
+                stationList = data;
+                //                for(var i=0; i<data.length; i++){
+                //                    stationList[i] = data[i];
+                //                }
+
+                //如果返回成功则刷新。
+                //                if(data=="SUCCESS"){
+                //                    window.location.reload();
+                //                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $(".side").hover(function () {
+            if (navigator.appVersion.match(/8./i) == "8.") {
+                $(this).stop().animate({
+                    "width": "124px"
+                }, 200)
+            }
+            $(this).find(".sidebox").stop().animate({
+                "width": "124px"
+            }, 200).css({
+                "opacity": "1",
+                "filter": "Alpha(opacity=100)",
+                "background": "#fff",
+                "border-right": " solid 1px #dee2e5",
+                "color": "#000",
+                "box-shadow": "1px 3px 5px rgba(0,0,0,.15)"
+            });
+            $(this).find(".sidebox").find("div").each(function (i) {
+                if (i == 1) {
+                    if (navigator.appVersion.match(/8./i) == "8.") {
+                        $(this).delay(200).show(200);
+                    } else {
+                        $(this).fadeIn(1500);
+                    }
+                }
+            })
+        }, function () {
+            if (navigator.appVersion.match(/8./i) == "8.") {
+                $(this).stop().animate({
+                    "width": "48px"
+                }, 200)
+            }
+            $(this).find(".sidebox").stop().animate({
+                "width": "48px"
+            }, 200).css({
+                "opacity": "1",
+                "filter": "Alpha(opacity=100)",
+                "background": "#d8edbc",
+                "border-right": "none",
+                "box-shadow": "none"
+            });
+            $(this).find(".sidebox").find("div").each(function (i) {
+                if (i == 1) {
+                    $(this).hide();
+                }
+            })
+        });
+
+        //加载站点下拉框
+        var selHTML = ""; //"<option value='0'>请选择</option>";
+        var stationCookieFlag = false;
+        var stationCookie = getCookie("stationId");
+        ;
+        for (var i = 0; i < stationList.length; i++) {
+            var stationId = stationList[i].stationId;
+            var name = stationList[i].name == null ? "" : stationList[i].name;
+            //alert(stationName);//--test
+            selHTML += "<li id='station" + stationId + "' class='station' value='" + stationId + "'>" +
+                "<a href='javascript:stationSelected(" + stationId + ");'><span>" + name + "</span></a></li>";
+
+            //判断cookie是否在站点存在
+            if (stationCookie == stationId) {
+                stationCookieFlag = true;
+            }
+        }
+
+        if (selHTML == "" || selHTML.length == 0) {
+            //            alert("对不起，您没有所属的站点！");
+            return;
+        }
+        $("#stationList").html(selHTML);
+
+        bindSiteBar();
+        //当用户有所属的站点，就获取第一个站点的终端列表
+        if (selHTML.length > 0) {
+            var stnId = "null";
+            if (stnId == "null") {
+                if (stationCookieFlag) {
+                    stnId = getCookie("stationId");
+                }
+                //判断站点Id是否在列表内
+                if (stnId == undefined || "" == stnId || stnId == "null") {
+                    stnId = $(".station").first().attr("value");
+                }
+            }
+
+            stationSelected(stnId);
+        }
+    });
+    var lastStationId = 0;
+
+    //选择站点，填充该站点下的终端下拉框，并默认加载该站点第一个终端的数据siteTerminal
+
+    function stationSelected(stationId) {
+        var url = "";
+        if (typeof(branch) != "undefined") {
+            url = "/siteTerminal?stationId=" + stationId + "&branch=" + branch;
+        } else {
+            url = "/siteTerminal?stationId=" + stationId;
+
+        }
+        addCookie("stationId", stationId);
+        var terId = "null";
+        //alert("terID=" + terId);//--test
+        //加载终端下拉框
+
+        if (parseInt(lastStationId) != 0) {
+            //  console.log(lastStationId)
+            $("#station" + lastStationId + " a").removeAttr("style");
+        }
+        $("#station" + stationId + " a").attr("style", "color:#599300");
+        var terminalList = $("#terminalList");
+
+        //if (selHTML.length > 0) {
+        // terminalSelected();
+        //}
+        lastStationId = stationId;
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            async: false,
+            cache: false,
+            success: function (data) {
+                var selHTML = ""; //"<option value='0'>请选择</option>";
+                if (data.list.length == 0) {
+                    selHTML += "<option value='-1'>没有终端</option>";
+                }
+                for (var i = 0; i < data.list.length; i++) {
+                    var obj = data.list[i];
+                    //    console.log(obj);
+                    if (obj[0] == terId) {
+                        selHTML += "<option value='" + obj[0] + "' type='" + obj[2] + "' serial='" + obj[3] + "' selected>" + obj[1] + "</option>";
+                    } else {
+                        selHTML += "<option value='" + obj[0] + "'  type='" + obj[2] + "' serial='" + obj[3] + "'>" + obj[1] + "</option>";
+                    }
+                }
+                terminalList.html(selHTML);
+                if (terId == "null") {
+                    terminalId = parent.getCookie("terminalId");
+                    if (terminalId != undefined || "" != terminalId) {
+                        terminalList.val(terminalId);
+                    }
+                }
+                //如果返回成功则刷新。
+            },
+            error: function () {
+            }
+        });
+
+        //如果终端还没有值，则选中第一个
+        var value = $("#terminalList option:selected").attr("value");
+        if (value == undefined) {
+            $("#terminalList option:first").prop("selected", 'selected');
+        }
+        //第一进来需要加载这个
+        initTerminalSelect(terminalList);
+    }
+
+
+    //测试时全部默认true
+    var terminalStatus = true;
+    var timerTerminal = null;
+
+    function initTerminalSelect(terminalList) {
+        terminalId = terminalList.val();
+        //当有终端时才放缓存 modified by liuxd 2015-05-07
+        if (terminalId > 0) {
+            parent.addCookie("terminalId", terminalId);
+        }
+        if (timerTerminal != null) {
+            clearInterval(timerTerminal);
+        }
+        checkTerminal();
+        timerTerminal = setInterval(checkTerminal, 1000 * 60);
+        terminalSelected();
+    }
+
+    //判断终端连接状态
+    function checkTerminal() {
+        //        try {
+        //            $.ajax({
+        //                url: "/baseData/terminal/checknet",
+        //                data: {terminalId: terminalId},
+        //                type: "get",
+        //                dataType: "json",
+        //                cache:false,
+        //                success: function (data) {
+        //                    var terr=$("#terminalError");
+        //                    try {
+        //                        if (data.code != 1) {
+        //                            if (terr) {
+        //                                $("#terminalError").remove();
+        //                            }
+        //                            terminalStatus=false;
+        //                            $("#terminalList").after("<img src='picture/unlink.png' id=\"terminalError\" style='width:26px;' title='"+data.message+"'>");
+        //                        } else {
+        //                            if (terr) {
+        //                                terminalStatus=true;
+        //                                $("#terminalError").remove();
+        //                            }
+        //                        }
+        //                    }catch (ex)
+        //                    {
+        //                        //alert(ex.message);
+        //                    }
+        //                }
+        //            });
+        //        } catch (e) {
+        //        }
+    }
+
+    $(function () {
+        var terminalList = $("#terminalList");
+        terminalList.removeAttr("onchange");
+        terminalList.change(function () {
+            initTerminalSelect(terminalList);
+        });
+
+    })
+
+    function bindSiteBar() {
+        AM.ready("component", function () {
+            !function () {
+                var a = function () {
+                    var m = $("#main-menu ol"),
+                        h = $(window).height() - 55 - 51;
+                    m.height(h);
+                    $(".gui-folder").height(h + 50);
+                    App.nanoScroller('.nano', '.nano ol', function () {
+
+                        $("#menubar .nano-slider").on("mousedown", function () {
+                            $("body").off('hover', '#menubar');
+                        })
+                        $("body").on("mouseup", "#menubar,#band8,#neck-box,#header", function () {
+                            var id = $(this).attr("id");
+                            id != 'menubar' && $("body").removeClass('menubar-visible');
+                            nano_check();
+                            $("body").off('hover');
+                            $("body").on('hover', '#menubar', function () {
+                                $("body").toggleClass('menubar-visible');
+                                nano_check();
+                            })
+
+                        })
+
+
+                    })
+                }
+                $(window).on('resize', function () {
+                    a()
+                })
+                a();
+            }()
+        })
+        // 侧边栏添加滚动条
+    }
+
+    function nano_check() {
+        if (/visible/.test($('body').attr('class'))) {
+            $("#menubar .nano-pane").show()
+        } else {
+            $("#menubar .nano-pane").hide()
+        }
+    }
+</script>
+<div id="header">
+    <div class="sa-lay">
+        <a class="logo" href="company_home.html">
+            <img src="common/picture/default_logo.png" alt="" style="max-width:186px;height:50px;">
+        </a>
+        <ul class="hlist" id="header-nav">
+            <li class="active">
+                <a href='realtime.html' target='_top'><i class='icon icon-data-chart'></i> 数据展示</a>
+            </li>
+            <li>
+                <a href='analysisQuery.html' target='_top'><i class='icon icon-note'></i> 统计分析</a>
+            </li>
+            <li>
+                <a href='environment.html' target='_top'><i class='icon icon-arrows'></i> 环境调控</a>
+            </li>
+            <li>
+                <a href='center.html' target='_top'><i class='icon icon-users'></i> 用户中心</a>
+            </li>
+            <li>
+                <a href='projectInfo.html' target='_top'><i class='icon icon-comment-o'></i> 项目信息</a>
+            </li>
+
+        </ul>
+        <ul class="hlist" id="header-btns">
+            <li>
+                <a class="icon i2 icon-question-circle" title="帮助" href="#"></a>
+            </li>
+            <li>
+                <a class="icon i2 icon-info-circle" title="关于" href="#"></a>
+            </li>
+            <li>
+                <a class="icon i2 icon-power-off" title="退出" href="login.html"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="neck-box">
+    <div class="sa-lay">
+        <ul class="hlist fl" id="data-menu">
+            <li class="active">
+                <a href='realtime.html' target='_top' class="tab-brown"><i
+                        class='icon i20 icon-02'></i> 土壤类</a>
+            </li>
+            <li>
+                <a href='/data/realqxl' target='_top' class="tab-orange"><i
+                        class='icon icon-01'></i> 气象类</a>
+            </li>
+            <li>
+                <a href='/data/realszl' target='_top' class="tab-blue"><i
+                        class='icon i20 icon-03'></i> 水质类</a>
+            </li>
+            <li>
+                <a href='/data/realzwsl' target='_top' class="tab-yellow"><i
+                        class='icon i20 icon-04'></i> 作物生理</a>
+            </li>
+            <li>
+                <a href='realzbl/picture.html' target='_top' class="tab-green"><i
+                        class='icon i20 icon-05'></i> 植保类</a>
+            </li>
+            <li>
+                <a href='/data/realzwtx' target='_top' class="tab-green2"><i
+                        class='icon i20 icon-06'></i> 作物照片</a>
+            </li>
+            <li>
+                <a href='realspjk.html' target='_top' class="tab-blue2"><i
+                        class='icon i20 icon-07'></i> 视频监控</a>
+            </li>
+        </ul>
+        <div class="sa-form sa-form-inline fr">
+            <span class="labels">终端 :</span>
+            <select class="selectBox no-mr client-list" id="terminalList" onchange="terminalSelected();"></select>
+        </div>
+    </div>
+</div>
+
+<div id="nprogress_div"></div>
+
+<div id="band8" data-toggle='fullpage'>
+    <div class="sa-lay section fp-section fp-table active" style="width: 1200px; height: 886px;">
+        <div class="fp-tableCell" style="height:886px;">
+            <div class="item4">
+                <div class="sa-panel sa-green" id="sa-panel-98703">
+                    <div class="sa-header">
+                        <div class="sa-header-con">
+                            <h2 class="sa-title">土壤温度01- [1]</h2>
+                        </div>
+                        <div class="sa-header-right">
+                            <div class="sa-nav-btns">
+                                <a id="node_link_98703" name="node_link_name" class="icon i2 i32 bg-white"
+                                   data-placement="bottom" data-toggle="popover" data-trigger="hover" title=""
+                                   data-content="连接" data-original-title="连接状态">
+                                    <i class="icon i2 i32 icon-link"></i>
+                                </a>
+                                <a id="node_power_98703" class="icon i2 i32 bg-white" data-placement="bottom"
+                                   data-toggle="popover" data-trigger="hover" title="" data-content="电池电量100%"
+                                   data-original-title="电源状态">
+                                    <img class="battery" src="components/realtime/images/battery/battery.png"></a>
+                                <a class="icon i2 i32 icon-config dataset" href="#dataset" title="土壤温度01"
+                                   deviceid="98703" kesrc="#dataset" name="dataset"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sa-content">
+                        <div class="sa-con-inner">
+                            <div class="sa-inner-content no-bg" style="width:266px;">
+                                <div class="data-qixiang" data-width="1024">
+                                    <a name="sensor" onclick="alarmDel(98703);" href="sensorData.html">
+                                        <div class="data-up">
+                                            <i><img class="data-img"
+                                                    src="components/realtime/images/sensoricon/161.png"></i>
+                                            <h2 class="text-green" id="node_value_98703">23.0</h2>
+                                            <p>(℃)</p>
+                                        </div>
+                                    </a>
+                                    <div class="chart-down">
+                                        <div id="sub_1_0" style="width: 266px; height: 100px;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sa-footer">
+                        <div class="sa-footer-con"></div>
+                        <div class="sa-footer-right"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="container" style="min-width:400px;height:400px" data-highcharts-chart="0"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 参数设置弹层-->
+
+<!---
+需要引入
+<link rel="stylesheet" type="text/css" href="css/validationengine.jquery.css">
+<script src="js/alarmset.js"></script>
+<script type="text/javascript" src="js/fancybox.js"></script>
+<link type="text/css" rel="stylesheet"  href="css/fancybox.css" media="screen">
+<script src="js/jquery.validationengine.js"></script>
+<script src="js/jquery.validationengine-zh_cn.js"></script>
+-->
+<div style="display: none;">
+    <div id="dataset" class="hhide tp-panel" style="width:567px;">
+        <div class="tp-panel-header" id="myTab">
+            <ul class="nav tp-nav-header">
+                <li><a class="on no-click" href="#data-chart" role="tab2">设置</a></li>
+                <li>
+                    <div style="line-height:40px;height:40px;padding-left:10px;font-size:14px;" id="msg"
+                         class="text-warning"></div>
+                </li>
+            </ul>
+            <button type="button" class="close" onclick="$.fancybox.close()"></button>
+        </div>
+        <div class="tp-panel-content" role="tabpanel">
+            <form id="dsForm">
+                <input type="hidden" id="hdDeviceId" value="0">
+                <div class="row data-setting">
+                    <div class="col-lg-6">
+                        <div class="s1">
+                            <h3 id="dataSetTitle"></h3>
+                            <div class="s1-input">
+                                <span>最高值：</span><input value="0" type="text" id="txtUpVal" name="upVal"
+                                                        data-errormessage-value-missing="必须是数字"
+                                                        data-errormessage-custom-error="必须是数字"
+                                                        data-validation-engine="validate[required,custom[number],funcCall[compareUpLow],min[-1000],max[1000000]]">
+                            </div>
+                            <div class="s1-input">
+                                <span>最低值：</span><input type="text" value="0" id="txtLowVal" name="lowVal"
+                                                        data-errormessage-value-missing="必须是数字"
+                                                        data-errormessage-custom-error="必须是数字"
+                                                        data-validation-engine="validate[required,custom[number],funcCall[compareUpLow],min[-1000],max[1000000]]">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="s2">
+                            <img src="common/picture/setting-clock.png"/>
+                            <p>采集频率(秒) :</p>
+                            <input type="text" id="txtCapIntv" name="capIntv" value="3600"
+                                   data-validation-engine="validate[required,custom[integer],min[60],max[7200]]">
+                        </div>
+                    </div>
+                </div>
+                <div class="win-btn">
+                    <button class="btn btn-primary btn-confirm" id="btnset" type="submit" disabled>确定</button>
+                    <button class="btn btn-default btn-reset" type="reset">清空</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 引入页脚 -->
+
+
+<div id="footer">
+
+</div>
+
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries-->
+<!--[if lt IE 9]>
+<script type="text/javascript" src="common/js/html5.js"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+<script type="text/javascript">
+    AM.ready(function () {
+        $("html").addClass("iecss")
+    })
+</script>
+<![endif]-->
+<script type="text/javascript" src="common/js/config.js"></script>
+<script type="text/javascript" src="common/js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="common/css/jquery.fancybox-1.3.4.css" media="screen"/>
+<script type="text/javascript" src="common/js/fancybox.js"></script>
+<link rel="stylesheet" type="text/css" href="common/css/validationengine.jquery.css">
+<script src="common/js/jquery.validationengine.js"></script>
+<script src="common/js/jquery.validationengine-zh_cn.js"></script>
+<script src="common/js/highcharts.js "></script>
+<!--<script src="js/highcharts.js"></script>-->
+<!-- <script src="js/highcharts-3d.js"></script> -->
+<script src="common/js/exporting.js"></script>
+<script src="common/js/no-data-to-display.js"></script>
+<script type="text/javascript" src="common/js/alarmset.js"></script>
+<link rel="stylesheet" type="text/css" href="common/css/nprogress.css">
+<script src="common/js/nprogress.js"></script>
+<script type="text/javascript" src="components/realtime/js/realtime.js"></script>
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements-->
+<!--[if lt IE 9]>
+<script type="text/javascript" src="common/js/html5shiv.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    var perType = "ALL";
+    type = 2; //初始化realtime.js的类型
+    var initflag = false;
+
+    function downPage() {
+        $.fn.fullpage.moveSectionDown();
+    }
+
+    function upPage() {
+        $.fn.fullpage.moveSectionUp();
+    }
+</script>
+<script type="text/javascript" src="common/js/amready.js"></script>
+<script type="text/javascript">
+    function terminalSelected() {
+        terminalId = $("#terminalList").val();
+        if (terminalId == null || terminalId.length == 0) {
+            alert("请先选择终端！");
+            return;
+        }
+        if (initflag) {
+            glo.clearBand(); //清除band
+            pageNum = 1;
+            getAllDevice(type);
+            glo.reBuildBand();
+        }
+    }
+</script>
+<script type="text/javascript" src="common/js/json2.js"></script>
+<script type="text/javascript" src="common/js/socket.io.js"></script>
+<script type="text/javascript" src="common/js/topnodesub.js"></script>
+<script type="text/javascript" src="common/js/realnodesub.js"></script>
+<script>
+    function setNewData(sensorId, jsonObj) {
+        setNewSensorData(sensorId, jsonObj);
+    }
+
+    $(function () {
+        if (terminalId > 0) {
+            subscribeTerminal(terminalId);
+        }
+    })
+</script>
+<script>
+    var chart = new Highcharts.Chart('sub_1_0', {
+        chart: {
+            //            type: 'spline',//带状图
+            defaultSeriesType: 'spline',
+            theme: 'default', //主题默认
+            backgroundColor: '#F1F1F1'
+        },
+        title: {
+            text: '' //标题为空
+        },
+        exporting: { //导出按钮是否可用
+            enabled: false
+        },
+        xAxis: {
+            categories: ['15', '18', '21', '00', '03', '06', '09', '12'],
+            lineWidth: 1,//基线宽度
+            tickmarkPlacement: 'on',
+            lineColor: '#9a9a9a'
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            tickPositions: [24, 26, 28, 30],
+            lineWidth: 1, //基线宽度
+            //            labels:{y:26} , //x轴标签位置：距X轴下方26像素
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }],
+            gridLineColor:'#9a9a9a',
+            lineColor: '#9a9a9a'
+        },
+        credits: {
+            enabled: false //右下角图表版权信息不显示
+        },
+        tooltip: {
+            valueSuffix: '°C'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0,
+            enabled: false //设置图例不可见
+        },
+        series: [{
+            name: '土壤温度01-[1]',
+            data: [27.9, 29.5, 28.3, 27.8, 27.4, 26.3, 25.9, 24.5]
+        }],
+        plotOptions: {
+            line: {
+                events: {
+                    legendItemClick: function () {
+                        return false; //点击图注不会使曲线不可见，默认可以为true
+                    }
+                },
+                showInLegend: false //是否显示图注
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

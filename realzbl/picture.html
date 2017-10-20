@@ -1,0 +1,595 @@
+﻿<!DOCTYPE html>
+
+
+
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/layout2.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="css/ui-dialog.css" />
+    <script type="text/javascript" src="../common/js/WdatePicker/WdatePicker.js" async="true"></script>
+    <script type="text/javascript" src="../common/js/App.nicescroll.js" async="true"></script>
+    <script type="text/javascript" src="js/App.scrollto.js" async="true"></script>
+    <script type="text/javascript" src="../common/js/bootstrap.min.js" async="true"></script>
+    <script type="text/javascript" src="js/App.zoom.js" async="true"></script>
+    <script type="text/javascript" src="../common/js/App.component.js" async="true"></script>
+    <script type="text/javascript" src="../common/js/App.init2.js" async="true"></script>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src=" js/jquery-migrate.js"></script>
+    <script type="text/javascript" src="js/top.core.js"></script>
+    <script type="text/javascript" src="js/top.ajax.js"></script>
+    <script type="text/javascript" src="js/top.showpage.js"></script>
+    <script type="text/javascript" src="js/am.js"></script>
+    <script src="js/dialog-plus.js"></script>
+    <script type="text/javascript" src="js/jquery.toptab.js"></script>
+    <script type="text/javascript" src="js/dateutil.js"></script>
+    <script type="text/javascript" src="js/insect-config.js"></script>
+
+    <!--[if lt IE 9]>
+    <script type="text/javascript">
+        AM.ready(function () {
+            $("html").addClass("iecss");
+        });
+    </script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="header">
+        <div class="sa-lay">
+            <a class="logo" href="/company_home">
+                <img src="../common/picture/default_logo.png" alt="" style="max-width:186px;height:50px;">
+            </a>
+            <ul class="hlist" id="header-nav">
+                <li class="active">
+                    <a href='../realtime.html' target='_top'><i class='icon icon-data-chart'></i> 数据展示</a>
+                </li>
+                <li>
+                    <a href='../analysisQuery.html' target='_top'><i class='icon icon-note'></i> 统计分析</a>
+                </li>
+                <li>
+                    <a href='../environment.html' target='_top'><i class='icon icon-arrows'></i> 环境调控</a>
+                </li>
+                <li>
+                    <a href='../center.html' target='_top'><i class='icon icon-users'></i> 用户中心</a>
+                </li>
+                <li>
+                    <a href='../projectInfo.html' target='_top'><i class='icon icon-comment-o'></i> 项目信息</a>
+                </li>
+
+            </ul>
+            <ul class="hlist" id="header-btns">
+                <li>
+                    <a class="icon i2 icon-question-circle" title="帮助" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-info-circle" title="关于" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-power-off" title="退出" href="/user/vali/logout"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="neck-box">
+        <div class="sa-lay">
+            <ul class="hlist fl" id="data-menu">
+                <li>
+                    <a href='../realtime.html' target='_top' class="tab-brown"><i
+                            class='icon i20 icon-02'></i> 土壤类</a>
+                </li>
+                <li>
+                    <a href='/data/realqxl' target='_top' class="tab-orange"><i
+                            class='icon icon-01'></i> 气象类</a>
+                </li>
+                <li>
+                    <a href='/data/realszl' target='_top' class="tab-blue"><i
+                            class='icon i20 icon-03'></i> 水质类</a>
+                </li>
+                <li>
+                    <a href='/data/realzwsl' target='_top' class="tab-yellow"><i
+                            class='icon i20 icon-04'></i> 作物生理</a>
+                </li>
+                <li class="active">
+                    <a href='picture.html' target='_top' class="tab-green"><i
+                            class='icon i20 icon-05'></i> 植保类</a>
+                </li>
+                <li>
+                    <a href='/data/realzwtx' target='_top' class="tab-green2"><i
+                            class='icon i20 icon-06'></i> 作物照片</a>
+                </li>
+                <li>
+                    <a href='../realspjk.html' target='_top' class="tab-blue2"><i
+                            class='icon i20 icon-07'></i> 视频监控</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="offcanvas">
+        <div class="sa-lay">
+            <!-- e -->
+
+            <div class="sa-panel sa-responsive fl" style="width:1048px;">
+                <div class="sa-header">
+                    <div class="sa-header-con">
+                        <!-- header 内容 -->
+                        <ul class="sa-nav">
+                            <li>
+                                <a href="javascript:void(0)" data-toggle="back" class="sa-back" data-role="back"></a>
+                            </li>
+                            <li><a href="javascript:void(0)" data-toggle="tab" data-target=".data-jit" class="sa-tab on">实时数据</a>
+                            </li>
+                            <li><a href="javascript:void(0)" data-toggle="tab" data-target='.data-main' class="sa-tab">历史数据</a></li>
+                        </ul>
+                    </div>
+                    <div class="sa-header-right">
+                        <div class="sa-nav-btns">
+                            <form id="frm1" class="search-form sa-form-zhibao" method="post">
+                                日期选择 ：<input class="inputBox" type="text" data-role="datepicker" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd' })" value="2017-09-23" name="searchDate" id="search_date">
+                                <a class="search" href="javascript:void(0);" onclick="__picSearch();">
+                                &nbsp;</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="sa-content">
+                    <div class="sa-con-inner">
+                        <div class="sa-inner-content" style="">
+                            <!-- s -->
+                            <!-- 内容区域 -->
+                            <div class="data-jit" data-role="tab-page">
+                                <div class="zoom-main">
+                                    <div class="s-zoom">
+
+                                        <a href='../common/picture/IMG_16-04-10-21-00-43.jpg' class='cloud-zoom' id='zoom1' rel="adjustX:0, adjustY:0,zoomWidth:200,zoomHeight:200">
+                                            <img src="../common/picture/IMG_16-04-10-21-00-43.jpg" width="760px" height="470px" alt="">
+                                        </a>
+
+
+                                    </div>
+                                    <div class="s-zoom-list">
+                                        <div class="s-up"></div>
+                                        <ul>
+
+
+                                            <input type="hidden" name="list_img_id" id="list_img_id" value="25187" />
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=25187><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=25188><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=25191><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=25192><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=25200><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=25206><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=25207><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24298><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24299><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24307><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24308><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24316><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24317><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24324><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24325><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24327><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24328><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24331><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24332><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="../common/picture/IMG_16-04-10-21-00-43.jpg" class="insect_count" img_id=24333><img src="../common/picture/IMG_16-04-10-21-00-43.jpg"></a>
+                                            </li>
+
+
+                                        </ul>
+                                        <div class="s-down"></div>
+                                    </div>
+
+                                </div>
+                                <div class="jit-table">
+                                    <table class="table va-table" id="real_data">
+                                        <thead>
+                                            <tr>
+                                                <td width="160">名称</td>
+                                                <td width="170">阶段</td>
+                                                <td width="160">颜色</td>
+                                                <td>数量</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <div class="pagination" id="pagination2" />
+                                                    <div class="clearfix"></div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+
+
+
+                                    <a href="javascript:void(0);">
+                                        <div class="download-btn"></div>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <!-- 内容区域  end -->
+
+                            <!-- 内容区域 -->
+                            <div class="data-main" data-role="tab-page" style="display:none;">
+                                <table class="table sa-table" id="history_data">
+                                    <thead>
+                                        <tr>
+                                            <th>控制模式</th>
+                                            <th>仓位</th>
+                                            <th>虫子数量</th>
+                                            <th>天气</th>
+                                            <th>图片名称</th>
+                                            <th>拍照模式</th>
+                                            <th>经度</th>
+                                            <th>纬度</th>
+                                            <th>海拔</th>
+                                            <th>时间</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="9">
+                                                <div class="pagination" id="pagination" />
+                                                <div class="clearfix"></div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- 内容区域  end -->
+                            <!-- e s -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sa-footer">
+                    <div class="sa-footer-con"></div>
+                    <div class="sa-footer-right"></div>
+                </div>
+            </div>
+            <!-- end e -->
+
+
+
+
+            <div class="sa-sidemenu fr">
+                <div class="sa-sm-header">
+
+                    <small>虫情测报灯20</small>
+                </div>
+                <div class="sa-sm-content">
+                    <ul>
+                        <li>
+                            <a class="active" href="picture.html"><i
+                        class="sa sa-pic"></i><span>图像</span></a>
+                        </li>
+                        <li>
+                            <a href="state.html"><i
+                        class="sa sa-eyes"></i><span>状态</span></a>
+                        </li>
+                        <li>
+                            <a href="take.html">
+                                <i class="sa sa-photo"></i><span>拍一张</span></a>
+                        </li>
+                        <li>
+                            <a href="set.html"><i
+                                class="sa sa-cog"></i><span>设置</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div id="footer">
+
+    </div>
+
+    <script type="text/javascript">
+        AM.ready("init2", "zoom", "scrollto", function() {
+            // 移动代码
+            var Timer;
+            var a = 0;
+            var time = 50; //越大越慢
+            var speed = 5; //越大越快
+            var t = $(".s-zoom-list ul");
+            $("body").on("mouseover", ".s-down", function() {
+                Timer = setInterval(function() {
+                    t.scrollTo(t.scrollTop() + speed);
+                }, time)
+            })
+            $("body").on("mouseover", ".s-up", function() {
+                Timer = setInterval(function() {
+                    t.scrollTo(t.scrollTop() - speed);
+                }, time)
+            })
+
+            $(".s-up,.s-down").on("mouseout", function() {
+                clearInterval(Timer);
+            })
+
+            // 绑定点击事件
+            t.find("li > a").each(function(index) {
+                var a = $(this);
+                a.on("click", function() {
+                    $(".cloud-zoom").data("zoom").destroy();
+                    var zoom = $('.cloud-zoom');
+                    zoom.attr("href", a[0].href);
+                    zoom.find('img').eq(0).attr('src', a[0].href);
+                    $(".cloud-zoom").CloudZoom();
+                    activeIt(a);
+                    insect_count_info($(this).attr("img_id"));
+                    return false;
+                })
+            })
+
+
+            function activeIt(obj) {
+                $(".s-zoom-list li a").removeClass('on');
+                obj.addClass('on');
+            }
+
+            function debug(a) {
+                if ($("#w-width").length < 1) {
+                    $("<div>").attr("id", "w-width").css({
+                        "position": "fixed",
+                        "top": 5,
+                        'left': 5,
+                        'color': '#fff',
+                        'z-index': 9999
+                    }).appendTo($("body"));
+                }
+                $("#w-width").html(a);
+            }
+
+            //        if (!isNaN($("#list_img_id").val())) {
+            //            insect_count_info($("#list_img_id").val());
+            //        }
+
+            //历史数据
+            get_history_data();
+            $(".insect_count:first").click();
+        })
+
+        function __picSearch() {
+            location.href = "?linkcode=1&terminal_id=0&device_id=35643&device_type=3&searchDate=" + $("#search_date").val();
+        }
+
+        var $img_id;
+
+        function insect_count_info(img_id) {
+            $img_id = img_id;
+            (function() {
+                $('#real_data').toptab({
+                    listURL: '/insect/count/ajax_img_attr',
+                    customBtn: true,
+                    checkBox: false,
+                    delBtn: false,
+                    bodyElement: '#real_data tbody',
+                    pageContainer: 'pagination2',
+                    win_fancybox: [],
+                    searchElement: '#mSearch',
+                    searchCallback: function() {
+                        return {
+                            pageNo: 1,
+                            pageSize: 10,
+                            img_id: img_id,
+                            rel: 'real_data'
+
+                        };
+                    },
+                    callback: function($list, pageNo, pageSize) {
+                        var $trs = [];
+                        var $len = $list.length;
+                        if ($len > 0) {
+                            for (var i = 0, j = $list.length; i < j; i++) {
+                                var $tr = $("<tr></tr>");
+                                $tr.append("<td>" + $insectTypes[$list[i].insectType][1] + "</td>");
+                                $tr.append("<td>" + (($list[i].phase == 0) ? "成虫" : ($list[i].phase == 1) ? "幼虫" : "") + "</td>");
+                                if ($list[i].color == 'FFFFFFFF') {
+                                    $tr.append("<td bgcolor='#000000'>&nbsp;</td>");
+                                } else {
+                                    $tr.append("<td bgcolor='" + $list[i].color + "'>&nbsp;</td>");
+                                }
+                                $tr.append("<td>" + $list[i].number + "</td>");
+                                $trs.push($tr);
+                            }
+                        } else {
+                            $trs.push("<tr><td colspan='4'>无相关数据</td></tr>");
+                        }
+                        return $trs;
+                    }
+                });
+            })();
+        }
+
+        function get_history_data() {
+            (function() {
+                $('#history_data').toptab({
+                    listURL: '/insect/history/data/ajax_list',
+                    customBtn: true,
+                    checkBox: false,
+                    delBtn: false,
+                    bodyElement: '#history_data tbody',
+                    pageContainer: 'pagination',
+                    win_fancybox: [],
+                    searchElement: '#mSearch',
+                    searchCallback: function() {
+                        return {
+                            pageNo: 1,
+                            pageSize: 10,
+                            device_id: 35643,
+                            searchDate: $("#search_date").val(),
+                            rel: 'history_data',
+                            snapshot_mode: ""
+
+                        };
+                    },
+                    callback: function($list, pageNo, pageSize) {
+                        var $trs = [];
+                        var $len = $list.length;
+                        if ($len > 0) {
+                            for (var i = 0, j = $list.length; i < j; i++) {
+                                var $tr = $("<tr></tr>");
+                                $tr.append("<td>" + (($list[i].workPattern == 1) ? "时控模式" : ($list[i].workPattern == 2) ? "光控模式" : ($list[i].workPattern == 3) ? "手动模式" : "") + "</td>");
+                                $tr.append("<td>" + $list[i].positions + "</td>");
+                                $tr.append("<td id='insect_count_" + $list[i].imgId + "'>" + $list[i].insectCount + "</td>");
+                                $tr.append("<td>" + (($list[i].weatherType == 0) ? "晴天" : ($list[i].weatherType == 1) ? "雨天" : "") + "</td>");
+                                //                                $tr.append("<td><a href='/insect/realtime/data/img_cnt?imgId=" + $list[i].cqDeviceImg.imgId + "' target='_blank' onclick='imgCntPage("+$list[i].cqDeviceImg.imgId +")' >" + $list[i].cqDeviceImg.imageName + "</a></td>");
+                                $tr.append("<td><a href='javascript:void(0);'  onclick='imgCntPage(" + $list[i].imgId + ")' >" + $list[i].imageName + "</a></td>");
+                                $tr.append("<td>" + ($list[i].snapshotMode == 1 ? "定时" : "手动") + "</td>");
+
+                                $tr.append("<td>" + long_lat_itude($list[i].longitude) + "</td>");
+                                $tr.append("<td>" + long_lat_itude($list[i].latitude) + "</td>");
+                                $tr.append("<td>" + $list[i].elevation + "</td>");
+                                $tr.append("<td>" + timeStamp2String($list[i].collectTime + "000") + "</td>");
+                                $trs.push($tr);
+                            }
+                        } else {
+                            $trs.push("<tr><td colspan='9'>无相关数据</td></tr>");
+                        }
+                        return $trs;
+                    }
+                });
+            })();
+        }
+
+        //格式化经度纬度
+        function long_lat_itude(val) {
+            $h = parseInt(val);
+            $m = parseInt((val - $h) * 60);
+            $s = parseInt(((val - $h) * 60 - $m) * 60);
+            return $h + "°" + $m + "′" + $s + "″";
+        }
+
+        //打开虫量计数页面
+        function imgCntPage(imgId) {
+            dialog({
+                id: $(this).data('id'),
+                width: '1010px',
+                height: '640px',
+                title: '虫量计数',
+                url: "/insect/realtime/data/img_cnt?imgId=" + imgId
+            }).showModal();
+            return false;
+        }
+
+        $(function() {
+            $('.download-btn').bind('click', function() {
+                if ($img_id) {
+                    imgCntPage($img_id);
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>

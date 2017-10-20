@@ -1,0 +1,814 @@
+﻿<!DOCTYPE html>
+
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>视频监控 | 数据展示 | 农业物联网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- for 360 -->
+    <meta name="renderer" content="webkit">
+    <!-- boot -->
+    <link rel="stylesheet" type="text/css" href="common/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="common/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="common/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="common/css/layout2.css">
+    <link rel="stylesheet" type="text/css" href="common/css/jk.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="common/js/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="common/js/jquery.js"></script>
+    <script type="text/javascript" src="common/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="common/js/am.js"></script>
+    <script type="text/javascript" src="common/js/webvideoctrl.js"></script>
+
+    <script type="text/javascript" src="common/js/video2.js"></script>
+    <!--[if lt IE 9]>
+    <script type="text/javascript">
+        AM.ready(function () {
+            $("html").addClass("iecss");
+        });
+    </script>
+    <![endif]-->
+</head>
+
+<body>
+    <!-- header start -->
+    <div id="header">
+        <div class="sa-lay">
+            <a class="logo" href="company_home.html">
+                <img src="common/picture/default_logo.png" alt="" style="max-width:186px;height:50px;">
+            </a>
+            <ul class="hlist" id="header-nav">
+                <li class="active">
+                    <a href='realtime.html' target='_top'><i class='icon icon-data-chart'></i> 数据展示</a>
+                </li>
+                <li>
+                    <a href='analysisQuery.html' target='_top'><i class='icon icon-note'></i> 统计分析</a>
+                </li>
+                <li>
+                    <a href='environment.html' target='_top'><i class='icon icon-arrows'></i> 环境调控</a>
+                </li>
+                <li>
+                    <a href='center.html' target='_top'><i class='icon icon-users'></i> 用户中心</a>
+                </li>
+                <li>
+                    <a href='projectInfo.html' target='_top'><i class='icon icon-comment-o'></i> 项目信息</a>
+                </li>
+            </ul>
+            <ul class="hlist" id="header-btns">
+                <li>
+                    <a class="icon i2 icon-question-circle" title="帮助" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-info-circle" title="关于" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-power-off" title="退出" href="login.html"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="neck-box">
+        <div class="sa-lay">
+            <ul class="hlist fl" id="data-menu">
+                <li>
+                    <a href='realtime.html' target='_top' class="tab-brown"><i
+                            class='icon i20 icon-02'></i> 土壤类</a>
+                </li>
+                <li>
+                    <a href='/data/realqxl' target='_top' class="tab-orange"><i
+                            class='icon icon-01'></i> 气象类</a>
+                </li>
+                <li>
+                    <a href='/data/realszl' target='_top' class="tab-blue"><i
+                            class='icon i20 icon-03'></i> 水质类</a>
+                </li>
+                <li>
+                    <a href='/data/realzwsl' target='_top' class="tab-yellow"><i
+                            class='icon i20 icon-04'></i> 作物生理</a>
+                </li>
+                <li>
+                    <a href='realzbl/picture.html' target='_top' class="tab-green"><i
+                            class='icon i20 icon-05'></i> 植保类</a>
+                </li>
+                <li>
+                    <a href='/data/realzwtx' target='_top' class="tab-green2"><i
+                            class='icon i20 icon-06'></i> 作物照片</a>
+                </li>
+                <li class="active">
+                    <a href='realspjk.html' target='_top' class="tab-blue2"><i
+                            class='icon i20 icon-07'></i> 视频监控</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- header end -->
+
+
+
+
+
+
+    <script type="text/javascript" src="common/js/am.js"></script>
+
+    <script src="common/js/cookie.js"></script>
+
+    <div id="menubar" class="menubar-inverse animate">
+        <div class="menubar-scroll-panel" style="height:100%; overflow:hidden;">
+            <div class="bg-mask"></div>
+            <ul id="main-menu">
+                <li class="gui-folder">
+                    <div class="gui-icon">
+                        <i class="fa fa-map-marker"></i>基地
+                    </div>
+                    <span class=" title m-header"><i class="fa fa-map-marker"></i> 基地管理</span>
+                    <div class="nano">
+                        <ol id="stationList">
+                        </ol>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        //var stnId;//站点id
+        //var terId;//终端id
+        var stationList = new Array(); //站点列表
+        //判断sesson是否为空，
+        //如果为空发送ajax请求
+        $(function() {
+
+                getStationAjax();
+                //        }
+            })
+            //通过ajax请求获得站点信息,同步，无返回值
+        function getStationAjax() {
+            //获得staionId
+            //获得unitId
+
+            var jdId = "null";
+            if (jdId == "null") {
+                jdId = "";
+            }
+            var unitId = getCookie("unitId");
+            if (unitId == undefined || "" == unitId) {
+                unitId = "";
+            }
+            $.ajax({
+                type: "GET",
+                url: '/siteAjax?station=' + jdId + '&unitId=' + unitId,
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function(data) {
+                    stationList = data;
+                    //                for(var i=0; i<data.length; i++){
+                    //                    stationList[i] = data[i];
+                    //                }
+
+                    //如果返回成功则刷新。
+                    //                if(data=="SUCCESS"){
+                    //                    window.location.reload();
+                    //                }
+                },
+                error: function() {}
+            });
+        }
+
+        $(document).ready(function() {
+            $(".side").hover(function() {
+                if (navigator.appVersion.match(/8./i) == "8.") {
+                    $(this).stop().animate({
+                        "width": "124px"
+                    }, 200)
+                }
+                $(this).find(".sidebox").stop().animate({
+                    "width": "124px"
+                }, 200).css({
+                    "opacity": "1",
+                    "filter": "Alpha(opacity=100)",
+                    "background": "#fff",
+                    "border-right": " solid 1px #dee2e5",
+                    "color": "#000",
+                    "box-shadow": "1px 3px 5px rgba(0,0,0,.15)"
+                });
+                $(this).find(".sidebox").find("div").each(function(i) {
+                    if (i == 1) {
+                        if (navigator.appVersion.match(/8./i) == "8.") {
+                            $(this).delay(200).show(200);
+                        } else {
+                            $(this).fadeIn(1500);
+                        }
+                    }
+                })
+            }, function() {
+                if (navigator.appVersion.match(/8./i) == "8.") {
+                    $(this).stop().animate({
+                        "width": "48px"
+                    }, 200)
+                }
+                $(this).find(".sidebox").stop().animate({
+                    "width": "48px"
+                }, 200).css({
+                    "opacity": "1",
+                    "filter": "Alpha(opacity=100)",
+                    "background": "#d8edbc",
+                    "border-right": "none",
+                    "box-shadow": "none"
+                });
+                $(this).find(".sidebox").find("div").each(function(i) {
+                    if (i == 1) {
+                        $(this).hide();
+                    }
+                })
+            });
+
+            //加载站点下拉框
+            var selHTML = ""; //"<option value='0'>请选择</option>";
+            var stationCookieFlag = false;
+            var stationCookie = getCookie("stationId");;
+            for (var i = 0; i < stationList.length; i++) {
+                var stationId = stationList[i].stationId;
+                var name = stationList[i].name == null ? "" : stationList[i].name;
+                //alert(stationName);//--test
+                selHTML += "<li id='station" + stationId + "' class='station' value='" + stationId + "'>" +
+                    "<a href='javascript:stationSelected(" + stationId + ");'><span>" + name + "</span></a></li>";
+
+                //判断cookie是否在站点存在
+                if (stationCookie == stationId) {
+                    stationCookieFlag = true;
+                }
+            }
+
+            if (selHTML == "" || selHTML.length == 0) {
+                //            alert("对不起，您没有所属的站点！");
+                return;
+            }
+            $("#stationList").html(selHTML);
+
+            bindSiteBar();
+            //当用户有所属的站点，就获取第一个站点的终端列表
+            if (selHTML.length > 0) {
+                var stnId = "null";
+                if (stnId == "null") {
+                    if (stationCookieFlag) {
+                        stnId = getCookie("stationId");
+                    }
+                    //判断站点Id是否在列表内
+                    if (stnId == undefined || "" == stnId || stnId == "null") {
+                        stnId = $(".station").first().attr("value");
+                    }
+                }
+
+                stationSelected(stnId);
+            }
+        });
+        var lastStationId = 0;
+        //选择站点，填充该站点下的终端下拉框，并默认加载该站点第一个终端的数据siteTerminal
+
+        function stationSelected(stationId) {
+            var url = "";
+            if (typeof(branch) != "undefined") {
+                url = "/siteTerminal?stationId=" + stationId + "&branch=" + branch;
+            } else {
+                url = "/siteTerminal?stationId=" + stationId;
+
+            }
+            addCookie("stationId", stationId);
+            var terId = "null";
+            //alert("terID=" + terId);//--test
+            //加载终端下拉框
+
+            if (parseInt(lastStationId) != 0) {
+                //  console.log(lastStationId)
+                $("#station" + lastStationId + " a").removeAttr("style");
+            }
+            $("#station" + stationId + " a").attr("style", "color:#599300");
+            var terminalList = $("#terminalList");
+
+            //if (selHTML.length > 0) {
+            // terminalSelected();
+            //}
+            lastStationId = stationId;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function(data) {
+                    var selHTML = ""; //"<option value='0'>请选择</option>";
+                    if (data.list.length == 0) {
+                        selHTML += "<option value='-1'>没有终端</option>";
+                    }
+                    for (var i = 0; i < data.list.length; i++) {
+                        var obj = data.list[i];
+                        //    console.log(obj);
+                        if (obj[0] == terId) {
+                            selHTML += "<option value='" + obj[0] + "' type='" + obj[2] + "' serial='" + obj[3] + "' selected>" + obj[1] + "</option>";
+                        } else {
+                            selHTML += "<option value='" + obj[0] + "'  type='" + obj[2] + "' serial='" + obj[3] + "'>" + obj[1] + "</option>";
+                        }
+                    }
+                    terminalList.html(selHTML);
+                    if (terId == "null") {
+                        terminalId = parent.getCookie("terminalId");
+                        if (terminalId != undefined || "" != terminalId) {
+                            terminalList.val(terminalId);
+                        }
+                    }
+                    //如果返回成功则刷新。
+                },
+                error: function() {}
+            });
+
+            //如果终端还没有值，则选中第一个
+            var value = $("#terminalList option:selected").attr("value");
+            if (value == undefined) {
+                $("#terminalList option:first").prop("selected", 'selected');
+            }
+            //第一进来需要加载这个
+            initTerminalSelect(terminalList);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //测试时全部默认true
+        var terminalStatus = true;
+        var timerTerminal = null;
+
+        function initTerminalSelect(terminalList) {
+            terminalId = terminalList.val();
+            //当有终端时才放缓存 modified by liuxd 2015-05-07
+            if (terminalId > 0) {
+                parent.addCookie("terminalId", terminalId);
+            }
+            if (timerTerminal != null) {
+                clearInterval(timerTerminal);
+            }
+            checkTerminal();
+            timerTerminal = setInterval(checkTerminal, 1000 * 60);
+            terminalSelected();
+        }
+        //判断终端连接状态
+        function checkTerminal() {
+            //        try {
+            //            $.ajax({
+            //                url: "/baseData/terminal/checknet",
+            //                data: {terminalId: terminalId},
+            //                type: "get",
+            //                dataType: "json",
+            //                cache:false,
+            //                success: function (data) {
+            //                    var terr=$("#terminalError");
+            //                    try {
+            //                        if (data.code != 1) {
+            //                            if (terr) {
+            //                                $("#terminalError").remove();
+            //                            }
+            //                            terminalStatus=false;
+            //                            $("#terminalList").after("<img src='picture/unlink.png' id=\"terminalError\" style='width:26px;' title='"+data.message+"'>");
+            //                        } else {
+            //                            if (terr) {
+            //                                terminalStatus=true;
+            //                                $("#terminalError").remove();
+            //                            }
+            //                        }
+            //                    }catch (ex)
+            //                    {
+            //                        //alert(ex.message);
+            //                    }
+            //                }
+            //            });
+            //        } catch (e) {
+            //        }
+        }
+
+        $(function() {
+            var terminalList = $("#terminalList");
+            terminalList.removeAttr("onchange");
+            terminalList.change(function() {
+                initTerminalSelect(terminalList);
+            });
+
+        })
+
+        function bindSiteBar() {
+            AM.ready("component", function() {
+                    ! function() {
+                        var a = function() {
+                            var m = $("#main-menu ol"),
+                                h = $(window).height() - 55 - 51;
+                            m.height(h);
+                            $(".gui-folder").height(h + 50);
+                            App.nanoScroller('.nano', '.nano ol', function() {
+
+                                $("#menubar .nano-slider").on("mousedown", function() {
+                                    $("body").off('hover', '#menubar');
+                                })
+                                $("body").on("mouseup", "#menubar,#band8,#neck-box,#header", function() {
+                                    var id = $(this).attr("id");
+                                    id != 'menubar' && $("body").removeClass('menubar-visible');
+                                    nano_check();
+                                    $("body").off('hover');
+                                    $("body").on('hover', '#menubar', function() {
+                                        $("body").toggleClass('menubar-visible');
+                                        nano_check();
+                                    })
+
+                                })
+
+
+                            })
+                        }
+                        $(window).on('resize', function() {
+                            a()
+                        })
+                        a();
+                    }()
+                })
+                // 侧边栏添加滚动条
+        }
+
+        function nano_check() {
+            if (/visible/.test($('body').attr('class'))) {
+                $("#menubar .nano-pane").show()
+            } else {
+                $("#menubar .nano-pane").hide()
+            }
+        }
+    </script>
+
+    <div id="band8" data-toggle='fullpage' style="margin-top:30px;">
+        <div class="sa-lay section" style="width:1200px;height:560px;">
+            <div class="js-cont-left">
+                <div id="presetNode" class="dict"></div>
+                <div class="discri">
+                    <ul>
+                        <li class="rid nowr"><em class="pred act"></em> 正在播放</li>
+
+                        <li class="rid ther"><em class="pred dun"></em> 设备待机</li>
+                        <li class="rid donm"><em class="pred faile"></em> 连接失败</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="jk-cont-mid">
+                <div id="divPlugin" class="six-box"></div>
+            </div>
+
+            <div class="jk-cont-right">
+                <div class="auto-poin">
+                    <div class="arrows topleft" onmousedown="mouseDownPTZControl(5);" onmouseup="mouseUpPTZControl();"></div>
+                    <div class="arrows topmi" onmousedown="mouseDownPTZControl(1);" onmouseup="mouseUpPTZControl();"></div>
+                    <div class="arrows topright" onmousedown="mouseDownPTZControl(7);" onmouseup="mouseUpPTZControl();"></div>
+                    <div class="arrows midleft" onmousedown="mouseDownPTZControl(3);" onmouseup="mouseUpPTZControl();"></div>
+                    <div class="arrows mid" onmousedown="mouseDownPTZControl(9);" onmouseup="mouseUpPTZControl();"></div>
+                    <div class="arrows minright" onmousedown="mouseDownPTZControl(4);" onmouseup="mouseUpPTZControl();"></div>
+                    <div class="arrows boutleft" onmousedown="mouseDownPTZControl(6);" onmouseup="mouseUpPTZControl();"></div>
+                    <div class="arrows botmi" onmousedown="mouseDownPTZControl(2);" onmouseup="mouseUpPTZControl();"></div>
+                    <div class="arrows butright" onmousedown="mouseDownPTZControl(8);" onmouseup="mouseUpPTZControl();"></div>
+                </div>
+                <div class="pohe" id="downPicture" title="抓图"></div>
+
+                <div class="line" style="height: 285px;background: url('common/images/cont-bg.png') no-repeat;">
+                    <!-- <div class="sel-lay ">
+                    <span class="line">3X3</span>
+                   <span class="chars">字码流</span>
+                    </div>-->
+                    <div class="sel-lay1 ">
+                        <select id="wins" onchange="changeWndNum(this.value);" style="padding:4px 0 4px 6px;">
+                        <option value="1">1x1</option>
+                        <option value="2">2x2</option>
+                        <option value="3">3x3</option>
+                        <option value="4">4x4</option>
+                        <option value="6">6x6</option>
+                    </select>
+                    </div>
+                    <div class="sel-lay1">
+                        <select id="streamType" style="margin:10px 14px;padding:4px 0 4px 6px;">
+                        <option value="1">高清</option>
+                        <option value="2" selected>标清</option>
+                        <!-- <option value="3">第三码流</option>
+                         <option value="4">转码码流</option>-->
+                    </select>
+                    </div>
+                    <div class="kongz">
+                        <span class="biex" onmousedown="PTZZoomIn();" onmouseup="PTZZoomStop();">变倍+</span>
+                        <span class="biex" onmousedown="PTZZoomout();" onmouseup="PTZZoomStop();">变倍-</span>
+                        <span class="biex" onmousedown="PTZFocusIn();" onmouseup="PTZFoucusStop();">变焦+</span>
+                        <span class="biex" onmousedown="PTZFoucusOut();" onmouseup="PTZFoucusStop();">变焦-</span>
+                        <span class="biex" onclick="clickOpenSound();">开声+</span>
+                        <span class="biex" onclick="clickCloseSound();">关声-</span>
+                    </div>
+                    <div class="cont-ch">
+                        <span class="qup fullscreen">窗口全屏</span>
+                        <span class="qup" style="margin-left:12px;" id="stopOne">结束选中</span>
+                        <span class="qup" id="startAll">加载全部</span>
+                        <span class="qup" style="margin-left:12px;" id="stopAll">结束全部</span>
+                    </div>
+                    <div class="laynine">
+                        <span alt="1" class="lin linone"></span>
+                        <span alt="2" class="lin lintow"></span>
+                        <span alt="3" class="lin linsh"></span>
+                        <span alt="4" class="lin linfour"></span>
+                        <span alt="6" class="lin linfive"></span>
+                    </div>
+                </div>
+
+                <div class="loda"><a style="color:white;" onclick="downloadFile();"><span>下载视频插件</span></a></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="background-color: #285e8e;z-index: 999999; width: 100%;height: 200px;display:none; ">
+        <div style="display:none">
+            IP地址<input id="loginip" type="text" class="txt" value="111.75.156.200" /> 端口号
+            <input id="port" type="text" class="txt" value="81" /> 用户名
+            <input id="username" type="text" class="txt" value="admin" /> 密码
+            <input id="password" type="password" class="txt" value="12345" /> 设备端口
+            <input id="deviceport" type="text" class="txt" value="8000" />（可选参数）
+            <input type="button" class="btn" value="登录" onclick="clickLogin();" />
+            <input type="button" class="btn" value="退出" onclick="clickLogout();" />
+            <input type="button" class="btn2" value="获取基本信息" onclick="clickGetDeviceInfo();" /> 已登录设备
+            <select id="ip" class="sel" onchange="getChannelInfo();"></select> 通道列表
+            <select id="channels" class="sel">
+        <option value="1" bzero="false">IPdome</option>
+    </select>
+            <input type="button" class="btn" value="开始预览" onclick="clickStartRealPlay();" /> 音量
+            <input type="text" id="volume" class="txt" value="50" maxlength="3" />&nbsp;
+            <input type="button" class="btn" value="设置" onclick="clickSetVolume();" />（范围：0~100） 对讲通道
+            <select id="audiochannels" class="sel"> </select> 云台速度
+            <select id="ptzspeed" class="sel">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option selected>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+    </select>
+            <input type="button" class="btn" value="获取通道" onclick="clickGetAudioInfo();" />
+            <input type="button" class="btn" value="开始对讲" onclick="clickStartVoiceTalk();" />
+            <input type="button" class="btn" value="停止对讲" onclick="clickStopVoiceTalk();" />
+            <input type="button" class="btn" value="抓图" onclick="clickCapturePic();" />
+            <input type="button" class="btn" value="开始录像" onclick="clickStartRecord();" />
+            <input type="button" class="btn" value="停止录像" onclick="clickStopRecord();" />
+            <input type="button" class="btn2" value="启用电子放大" onclick="clickEnableEZoom();" />
+            <input type="button" class="btn2" value="禁用电子放大" onclick="clickDisableEZoom();" />
+            <input type="button" class="btn2" value="启用3D放大" onclick="clickEnable3DZoom();" />
+            <input type="button" class="btn2" value="禁用3D放大" onclick="clickDisable3DZoom();" />
+            <input type="button" class="btn2" value="光圈+" onmousedown="PTZIrisIn()" onmouseup="PTZIrisStop()">
+            <input type="button" class="btn2" value="光圈-" onmousedown="PTZIrisOut()" onmouseup="PTZIrisStop()">
+        </div>
+        <input id="previewPicPath" type="text" class="txt" />&nbsp;
+        <input type="button" class="btn" value="浏览" onclick="clickOpenFileDlg('previewPicPath', 0);" />
+
+        <div id="cbinfo" class="cbinfo" style="float: left; max-height: 180px;overflow: auto;height:180px"></div>
+        <div id="opinfo" class="opinfo" style="max-height: 180px;overflow: auto;height:180px"></div>
+        <input type="hidden" id="jsondata" value={$jsondata}/>
+    </div>
+
+
+
+
+    <!-- 引入页脚 -->
+
+
+    <div id="footer">
+
+    </div>
+
+
+    <!-- <a class="up" href="javascript:void(0)" style="left: 641px;"></a>
+
+<a class="down" href="javascript:void(0)" style="left:641px;"></a>
+ -->
+
+    <!-- Put your script here -->
+    <script type="text/javascript">
+        var msghtml = '' +
+            '<div class="dialog modal fade msg-popup">' +
+            '<div class="modal-dialog modal-sm">' +
+            '<div class="modal-content">' +
+            '<div class="modal-body text-center"></div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+        var $msgbox;
+        var offTimer;
+        var popup = function(message, offTime) {
+            if (!$msgbox) {
+                $msgbox = $(msghtml);
+                $('body').append($msgbox);
+            }
+            $msgbox.find(".modal-body").html(message);
+            $msgbox.modal({
+                show: true,
+                backdrop: false
+            });
+            if (offTime == undefined) {
+                offTime = 1500;
+            }
+            clearTimeout(offTimer);
+            offTimer = setTimeout(function() {
+                $msgbox.modal('hide');
+            }, offTime);
+        };
+
+        AM.ready("nicescroll", function() {
+            $(".dict").niceScroll({
+                cursorcolor: "#bebebe",
+                cursorwidth: "7px",
+                cursoropacitymax: 0.9,
+                cursoropacitymin: 0.9
+            });
+        });
+
+        //为了解决站点侧边栏需要点击空白处后才能显示的问题
+        AM.ready(function() {
+            $("body").on('mouseenter', '#menubar', function() {
+                $("body").addClass('menubar-visible');
+            })
+            $("body").on('mouseleave', '#menubar', function() {
+                $("body").removeClass('menubar-visible');
+            })
+        });
+
+        glo = window.glo || {};
+        glo.temp = 0;
+        glo.init = function() {
+            // Your script Code all here
+            //
+            $(".text-green").each(function() {
+                var that = $(this);
+                var x = setInterval(function() {
+                    glo._updateData(parseInt(Math.random() * 25 + 30), that)
+                }, Math.random() * 2000 + 5000);
+                that.data('_updateData', x);
+            });
+
+            AM.delay(1500, "bootstrap.min", function() {
+                // 让其展示
+                var m = $("[data-toggle=popover]").eq(0);
+                m.find("i").removeClass("icon-link").addClass("icon-unlink");
+                m.attr('data-content', "连接中断... 请检查设备【数据暂停更新】");
+                // 断开 停止更新
+                var x = m.parents(".item4").find(".text-green").data('_updateData');
+                clearInterval(x);
+                m.popover('show');
+            });
+        };
+
+        glo._updateData = function(num, obj) {
+            var val1 = glo.temp;
+            var val2 = num;
+            glo.temp = num;
+            $({
+                animatedVal: val1
+            }).animate({
+                animatedVal: val2
+            }, {
+                duration: 300,
+                easing: "swing",
+                step: function() {
+                    obj.html(Math.ceil(this.animatedVal)).trigger("change");
+                }
+            });
+        };
+
+        glo.log = function(obj) {
+            console.log('log here');
+        };
+
+        // demo
+        var update_client = function(obj) {
+            App.debug('正在更新终端:' + $(obj).html());
+        };
+
+        function update_site(obj) {
+            App.debug('正在更新基地:' + $(obj).html());
+            return false;
+        }
+    </script>
+    <script>
+        $(function() {
+            $("div[class='laynine'] span").click(function() {
+                $Mark = $(this).attr("alt");
+                setLaynineCss($Mark);
+                //            $("div[class='laynine'] span:eq(0)").removeAttr("class").attr("class","lin linone");
+                //            $("div[class='laynine'] span:eq(1)").removeAttr("class").attr("class","lin lintow");
+                //            $("div[class='laynine'] span:eq(2)").removeAttr("class").attr("class","lin linsh");
+                //            $("div[class='laynine'] span:eq(3)").removeAttr("class").attr("class","lin linfour");
+                //            if($Mark==1){
+                //                $(this).removeAttr("class").attr("class","lin linone2");
+                //            }
+                //            if($Mark==2){
+                //                $(this).removeAttr("class").attr("class","lin lintow2");
+                //            }
+                //            if($Mark==3){
+                //                $(this).removeAttr("class").attr("class","lin linsh2");
+                //            }
+                //            if($Mark==4){
+                //                $(this).removeAttr("class").attr("class","lin linfour2");
+                //            }
+                $("#wins").val($Mark);
+                //            WebVideoCtrl.I_ChangeWndNum(parseInt($Mark, 10));
+                changeWndNum($Mark);
+            });
+        });
+
+        var SUCCESS = 1;
+        winWidth = 843;
+        winHeight = 560;
+
+        function terminalSelected() {
+            $("#presetNode").html("");
+            var stationId = getCookie("stationId");
+            getCameraDevices(stationId);
+            //        $.ajax({
+            //            type: "GET",
+            //            url: '/camera/getCameras',
+            //            data: {
+            //                stationId: stationId,
+            //                deviceTypeId: 7,
+            //                branch: 7
+            //            },
+            //            dataType: "json",
+            //            cache: false,
+            //            async: false,//等ajax执行完后再返回，同步
+            //            success: function (data) {
+            //                //alert(data.code);//--test
+            //                if (data.code != SUCCESS || data.list.length == 0) {//查询失败
+            //                    $("#presetNode").html('<h3 class="text-danger" style="margin:10px 10px;text-align: center;">暂无视频设备</h3>');
+            ////                    $("#jsondata").val("");
+            ////                    StopAll();
+            ////                    changeWndNum(1);
+            ////                    return;
+            //                }
+            //                //console.log(JSON.stringify(data.list));//--test
+            //                $("#jsondata").val(JSON.stringify(data.list));
+            //                dealList();
+            //            },
+            //            error: function () {
+            //            }
+            //        });
+        }
+    </script>
+</body>

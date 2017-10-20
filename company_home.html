@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+
+
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>企业首页 | 农业物联网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- for 360-->
+    <meta name="renderer" content="webkit">
+    <!-- boot-->
+    <link rel="stylesheet" type="text/css" href="common/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="common/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="common/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="common/css/layout2.css">
+    <script type="text/javascript" src="common/js/jquery.js"></script>
+    <script type="text/javascript" src="common/js/cookie.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="common/js/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="common/js/am.js"></script>
+
+    <!--[if lt IE 9]>
+    <script type="text/javascript">
+        AM.ready(function(){
+            $("html").addClass("iecss")
+        })
+    </script>
+    <![endif]-->
+
+</head>
+
+<body data-menubar="true">
+    <div id="header">
+        <div class="sa-lay">
+            <a class="logo" href="company_home.html">
+                <img src="common/picture/default_logo.png" alt="" style="max-width:186px;height:50px;">
+            </a>
+            <ul class="hlist" id="header-nav">
+                <li>
+                    <a href='realtime.html' target='_top'><i class='icon icon-data-chart'></i> 数据展示</a>
+                </li>
+                <li>
+                    <a href='analysisQuery.html' target='_top'><i class='icon icon-note'></i> 统计分析</a>
+                </li>
+                <li>
+                    <a href='environment.html' target='_top'><i class='icon icon-arrows'></i> 环境调控</a>
+                </li>
+                <li>
+                    <a href='center.html' target='_top'><i class='icon icon-users'></i> 用户中心</a>
+                </li>
+                <li>
+                    <a href='.htmlprojectInfo.html' target='_top'><i class='icon icon-comment-o'></i> 项目信息</a>
+                </li>
+            </ul>
+            <ul class="hlist" id="header-btns">
+                <li>
+                    <a class="icon i2 icon-question-circle" title="帮助" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-info-circle" title="关于" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-power-off" title="退出" href="login.html"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="sa-lay">
+        <a href="#" class="unslider-arrow prev"></a>
+        <a href="#" class="unslider-arrow next"></a>
+        <div class="sa-hlist">
+
+            <ul class="sites" style="height:460px; overflow: hidden;">
+                <li>
+                    <a href="#">
+                        <div class="sites-mask" onclick='selectStation("42")'></div>
+                        <img src="common/picture/20170527160450.jpg" alt="" />
+                        <h2>大陆生产888</h2>
+                    </a>
+                    <a href="#">
+                        <div class="sites-mask" onclick='selectStation("99")'></div>
+                        <img src="common/picture/20160825173054.jpg" alt="" />
+                        <h2>大陆生产</h2>
+                    </a>
+                    <a href="#">
+                        <div class="sites-mask" onclick='selectStation("721")'></div>
+                        <img src="common/picture/pic-demo2.png" alt="">
+                        <h2>新固定墒情</h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="sites-mask" onclick='selectStation("861")'></div>
+                        <img src="common/picture/pic-demo2.png" alt="">
+                        <h2>库体</h2>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    </div>
+    </div>
+
+    <div id="footer">
+        <center>&copy; 2015浙江托普仪器有限公司 top17.net 版权所有</center>
+    </div>
+    <script type="text/javascript">
+        //    jQuery(window).resize(init);
+        var ifrm = $(window.parent.document).find("#mainFrame");
+        //    ifrm.load(function () {//绑定事件
+        //        init();
+        //    });
+        var oldnavbarheight = 0;
+
+        function init() {
+            // console.log($("#navbar").height())
+            var navbarHeight = parseInt($("#header").height());
+            if (oldnavbarheight == navbarHeight) {
+                return;
+            }
+            //navbarHeight=51;
+            //        ifrm.css("padding-top", navbarHeight + "px");
+            //减顶部和底部高度
+            var thisheight = $(document).height() - navbarHeight - 30 - 10; //获取页面高度
+            //console.log(thisheight);
+            ifrm.height(thisheight < 500 ? 500 : thisheight); //为iframe高度赋值如果高度小于500，则等于500，反之不限高，自适应
+            oldnavbarheight = navbarHeight;
+        }
+    </script>
+
+    <script type="text/javascript">
+        AM.ready('component', 'unslider', function() {
+
+            //for IE8
+            App.ie && $(".sites a:nth-child(3n)").css({
+                'margin-right': '0px'
+            })
+
+
+            var unslider = $(".sa-hlist").unslider({
+                fluid: true
+            });
+            $('.unslider-arrow').click(function() {
+                var fn = this.className.split(' ')[1];
+
+                //  Either do unslider.data('unslider').next() or .prev() depending on the className
+                unslider.data('unslider')[fn]();
+            });
+        })
+
+        function selectStation(stationId) {
+            //设置缓存。
+
+            addCookie("stationId", stationId);
+            window.location.href = "realtime.html"
+        }
+    </script>
+</body>
+
+</html>

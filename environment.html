@@ -1,0 +1,928 @@
+﻿<!DOCTYPE html>
+
+
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>环境调控 | 农业物联网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- for 360 -->
+    <meta name="renderer" content="webkit">
+    <!-- boot -->
+    <link href="common/css/jquery.fancybox.css" rel="stylesheet" media="screen" />
+    <link href="common/css/validationengine.jquery.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="common/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="common/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="common/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="common/css/layout2.css">
+    <link rel="stylesheet" type="text/css" href="common/css/jk.css">
+    <link rel="stylesheet" type="text/css" href="common/css/manage.css">
+    <link rel="stylesheet" type="text/css" href="common/css/buttoggle.css">
+    <style>
+        .btn-primary:hover {
+            background: #337AB7;
+            text-indent: 0px;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="common/js/nanoscroller/nanoscroller.css">
+    <script type="text/javascript" src="common/js/nanoscroller/nanoscroller.js" async="true"></script>
+    <script type="text/javascript" src="common/js/App.component.js" async="true"></script>
+    <script type="text/javascript" src="common/js/App.nicescroll.js" async="true"></script>
+    <script src="common/js/jquery.js"></script>
+    <script src="common/js/jquery-migrate.js"></script>
+    <script src="common/js/jquery.fancybox.js"></script>
+    <script src="common/js/jquery.validationengine.js"></script>
+    <script src="common/js/jquery.validationengine-zh_cn.js"></script>
+    <script type="text/javascript" src="common/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="common/js/jquery.bootstrap.js"></script>
+    <script type="text/javascript" src="common/js/webvideoctrl.js"></script>
+
+    <script type="text/javascript" src="common/js/video2.js"></script>
+    <script src="common/js/common.js"></script>
+    <script src="common/js/ctrl.js"></script>
+    <script type="text/javascript" src="common/js/am.js"></script>
+
+    <script type="text/javascript">
+        AM.ready("nicescroll", function() {
+            $(".proof").niceScroll({
+                cursorcolor: "#bebebe",
+                cursorwidth: "7px",
+                cursoropacitymax: 0.9,
+                cursoropacitymin: 0.9
+            });
+            $(".anim-con").niceScroll({
+                cursorcolor: "#bebebe",
+                cursorwidth: "7px",
+                cursoropacitymax: 0.9,
+                cursoropacitymin: 0.9
+            });
+            $(".dict1").niceScroll({
+                cursorcolor: "#bebebe",
+                cursorwidth: "7px",
+                cursoropacitymax: 0.9,
+                cursoropacitymin: 0.9
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <!-- header start -->
+    <div id="header">
+        <div class="sa-lay">
+            <a class="logo" href="company_home.html">
+                <img src="common/picture/default_logo.png" alt="" style="max-width:186px;height:50px;">
+            </a>
+            <ul class="hlist" id="header-nav">
+                <li>
+                    <a href='realtime.html' target='_top'><i class='icon icon-data-chart'></i> 数据展示</a>
+                </li>
+                <li>
+                    <a href='analysisQuery.html' target='_top'><i class='icon icon-note'></i> 统计分析</a>
+                </li>
+                <li class="active">
+                    <a href='environment.html' target='_top'><i class='icon icon-arrows'></i> 环境调控</a>
+                </li>
+                <li>
+                    <a href='center.html' target='_top'><i class='icon icon-users'></i> 用户中心</a>
+                </li>
+                <li>
+                    <a href='projectInfo.html' target='_top'><i class='icon icon-comment-o'></i> 项目信息</a>
+                </li>
+            </ul>
+            <ul class="hlist" id="header-btns">
+                <li>
+                    <a class="icon i2 icon-question-circle" title="帮助" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-info-circle" title="关于" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-power-off" title="退出" href="login.html"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- header end -->
+
+
+
+
+
+
+    <script type="text/javascript" src="common/js/am.js"></script>
+
+    <script src="common/js/cookie.js"></script>
+
+    <div id="menubar" class="menubar-inverse animate">
+        <div class="menubar-scroll-panel" style="height:100%; overflow:hidden;">
+            <div class="bg-mask"></div>
+            <ul id="main-menu">
+                <li class="gui-folder">
+                    <div class="gui-icon">
+                        <i class="fa fa-map-marker"></i>基地
+                    </div>
+                    <span class=" title m-header"><i class="fa fa-map-marker"></i> 基地管理</span>
+                    <div class="nano">
+                        <ol id="stationList">
+                        </ol>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        //var stnId;//站点id
+        //var terId;//终端id
+        var stationList = new Array(); //站点列表
+        //判断sesson是否为空，
+        //如果为空发送ajax请求
+        $(function() {
+
+                getStationAjax();
+                //        }
+            })
+            //通过ajax请求获得站点信息,同步，无返回值
+        function getStationAjax() {
+            //获得staionId
+            //获得unitId
+
+            var jdId = "null";
+            if (jdId == "null") {
+                jdId = "";
+            }
+            var unitId = getCookie("unitId");
+            if (unitId == undefined || "" == unitId) {
+                unitId = "";
+            }
+            $.ajax({
+                type: "GET",
+                url: '/siteAjax?station=' + jdId + '&unitId=' + unitId,
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function(data) {
+                    stationList = data;
+                    //                for(var i=0; i<data.length; i++){
+                    //                    stationList[i] = data[i];
+                    //                }
+
+                    //如果返回成功则刷新。
+                    //                if(data=="SUCCESS"){
+                    //                    window.location.reload();
+                    //                }
+                },
+                error: function() {}
+            });
+        }
+
+        $(document).ready(function() {
+            $(".side").hover(function() {
+                if (navigator.appVersion.match(/8./i) == "8.") {
+                    $(this).stop().animate({
+                        "width": "124px"
+                    }, 200)
+                }
+                $(this).find(".sidebox").stop().animate({
+                    "width": "124px"
+                }, 200).css({
+                    "opacity": "1",
+                    "filter": "Alpha(opacity=100)",
+                    "background": "#fff",
+                    "border-right": " solid 1px #dee2e5",
+                    "color": "#000",
+                    "box-shadow": "1px 3px 5px rgba(0,0,0,.15)"
+                });
+                $(this).find(".sidebox").find("div").each(function(i) {
+                    if (i == 1) {
+                        if (navigator.appVersion.match(/8./i) == "8.") {
+                            $(this).delay(200).show(200);
+                        } else {
+                            $(this).fadeIn(1500);
+                        }
+                    }
+                })
+            }, function() {
+                if (navigator.appVersion.match(/8./i) == "8.") {
+                    $(this).stop().animate({
+                        "width": "48px"
+                    }, 200)
+                }
+                $(this).find(".sidebox").stop().animate({
+                    "width": "48px"
+                }, 200).css({
+                    "opacity": "1",
+                    "filter": "Alpha(opacity=100)",
+                    "background": "#d8edbc",
+                    "border-right": "none",
+                    "box-shadow": "none"
+                });
+                $(this).find(".sidebox").find("div").each(function(i) {
+                    if (i == 1) {
+                        $(this).hide();
+                    }
+                })
+            });
+
+            //加载站点下拉框
+            var selHTML = ""; //"<option value='0'>请选择</option>";
+            var stationCookieFlag = false;
+            var stationCookie = getCookie("stationId");;
+            for (var i = 0; i < stationList.length; i++) {
+                var stationId = stationList[i].stationId;
+                var name = stationList[i].name == null ? "" : stationList[i].name;
+                //alert(stationName);//--test
+                selHTML += "<li id='station" + stationId + "' class='station' value='" + stationId + "'>" +
+                    "<a href='javascript:stationSelected(" + stationId + ");'><span>" + name + "</span></a></li>";
+
+                //判断cookie是否在站点存在
+                if (stationCookie == stationId) {
+                    stationCookieFlag = true;
+                }
+            }
+
+            if (selHTML == "" || selHTML.length == 0) {
+                //            alert("对不起，您没有所属的站点！");
+                return;
+            }
+            $("#stationList").html(selHTML);
+
+            bindSiteBar();
+            //当用户有所属的站点，就获取第一个站点的终端列表
+            if (selHTML.length > 0) {
+                var stnId = "null";
+                if (stnId == "null") {
+                    if (stationCookieFlag) {
+                        stnId = getCookie("stationId");
+                    }
+                    //判断站点Id是否在列表内
+                    if (stnId == undefined || "" == stnId || stnId == "null") {
+                        stnId = $(".station").first().attr("value");
+                    }
+                }
+
+                stationSelected(stnId);
+            }
+        });
+        var lastStationId = 0;
+        //选择站点，填充该站点下的终端下拉框，并默认加载该站点第一个终端的数据siteTerminal
+
+        function stationSelected(stationId) {
+            var url = "";
+            if (typeof(branch) != "undefined") {
+                url = "/siteTerminal?stationId=" + stationId + "&branch=" + branch;
+            } else {
+                url = "/siteTerminal?stationId=" + stationId;
+
+            }
+            addCookie("stationId", stationId);
+            var terId = "null";
+            //alert("terID=" + terId);//--test
+            //加载终端下拉框
+
+            if (parseInt(lastStationId) != 0) {
+                //  console.log(lastStationId)
+                $("#station" + lastStationId + " a").removeAttr("style");
+            }
+            $("#station" + stationId + " a").attr("style", "color:#599300");
+            var terminalList = $("#terminalList");
+
+            //if (selHTML.length > 0) {
+            // terminalSelected();
+            //}
+            lastStationId = stationId;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function(data) {
+                    var selHTML = ""; //"<option value='0'>请选择</option>";
+                    if (data.list.length == 0) {
+                        selHTML += "<option value='-1'>没有终端</option>";
+                    }
+                    for (var i = 0; i < data.list.length; i++) {
+                        var obj = data.list[i];
+                        //    console.log(obj);
+                        if (obj[0] == terId) {
+                            selHTML += "<option value='" + obj[0] + "' type='" + obj[2] + "' serial='" + obj[3] + "' selected>" + obj[1] + "</option>";
+                        } else {
+                            selHTML += "<option value='" + obj[0] + "'  type='" + obj[2] + "' serial='" + obj[3] + "'>" + obj[1] + "</option>";
+                        }
+                    }
+                    terminalList.html(selHTML);
+                    if (terId == "null") {
+                        terminalId = parent.getCookie("terminalId");
+                        if (terminalId != undefined || "" != terminalId) {
+                            terminalList.val(terminalId);
+                        }
+                    }
+                    //如果返回成功则刷新。
+                },
+                error: function() {}
+            });
+
+            //如果终端还没有值，则选中第一个
+            var value = $("#terminalList option:selected").attr("value");
+            if (value == undefined) {
+                $("#terminalList option:first").prop("selected", 'selected');
+            }
+            //第一进来需要加载这个
+            initTerminalSelect(terminalList);
+        }
+
+
+
+
+
+
+
+
+        //测试时全部默认true
+        var terminalStatus = true;
+        var timerTerminal = null;
+
+        function initTerminalSelect(terminalList) {
+            terminalId = terminalList.val();
+            //当有终端时才放缓存 modified by liuxd 2015-05-07
+            if (terminalId > 0) {
+                parent.addCookie("terminalId", terminalId);
+            }
+            if (timerTerminal != null) {
+                clearInterval(timerTerminal);
+            }
+            checkTerminal();
+            timerTerminal = setInterval(checkTerminal, 1000 * 60);
+            terminalSelected();
+        }
+        //判断终端连接状态
+        function checkTerminal() {
+            //        try {
+            //            $.ajax({
+            //                url: "/baseData/terminal/checknet",
+            //                data: {terminalId: terminalId},
+            //                type: "get",
+            //                dataType: "json",
+            //                cache:false,
+            //                success: function (data) {
+            //                    var terr=$("#terminalError");
+            //                    try {
+            //                        if (data.code != 1) {
+            //                            if (terr) {
+            //                                $("#terminalError").remove();
+            //                            }
+            //                            terminalStatus=false;
+            //                            $("#terminalList").after("<img src='picture/unlink.png' id=\"terminalError\" style='width:26px;' title='"+data.message+"'>");
+            //                        } else {
+            //                            if (terr) {
+            //                                terminalStatus=true;
+            //                                $("#terminalError").remove();
+            //                            }
+            //                        }
+            //                    }catch (ex)
+            //                    {
+            //                        //alert(ex.message);
+            //                    }
+            //                }
+            //            });
+            //        } catch (e) {
+            //        }
+        }
+
+        $(function() {
+            var terminalList = $("#terminalList");
+            terminalList.removeAttr("onchange");
+            terminalList.change(function() {
+                initTerminalSelect(terminalList);
+            });
+
+        })
+
+        function bindSiteBar() {
+            AM.ready("component", function() {
+                    ! function() {
+                        var a = function() {
+                            var m = $("#main-menu ol"),
+                                h = $(window).height() - 55 - 51;
+                            m.height(h);
+                            $(".gui-folder").height(h + 50);
+                            App.nanoScroller('.nano', '.nano ol', function() {
+
+                                $("#menubar .nano-slider").on("mousedown", function() {
+                                    $("body").off('hover', '#menubar');
+                                })
+                                $("body").on("mouseup", "#menubar,#band8,#neck-box,#header", function() {
+                                    var id = $(this).attr("id");
+                                    id != 'menubar' && $("body").removeClass('menubar-visible');
+                                    nano_check();
+                                    $("body").off('hover');
+                                    $("body").on('hover', '#menubar', function() {
+                                        $("body").toggleClass('menubar-visible');
+                                        nano_check();
+                                    })
+
+                                })
+
+
+                            })
+                        }
+                        $(window).on('resize', function() {
+                            a()
+                        })
+                        a();
+                    }()
+                })
+                // 侧边栏添加滚动条
+        }
+
+        function nano_check() {
+            if (/visible/.test($('body').attr('class'))) {
+                $("#menubar .nano-pane").show()
+            } else {
+                $("#menubar .nano-pane").hide()
+            }
+        }
+    </script>
+    <!-- 参数设置弹层-->
+
+
+    <div style="display: none;">
+        <div id="ctrlSet" class="hhide tp-panel" style="width:220px;">
+            <div class="tp-panel-header" id="myTab">
+                <ul class="nav tp-nav-header">
+                    <li><a class="on no-click">设置</a></li>
+                </ul>
+                <button type="button" class="close" onclick="$.fancybox.close();"></button>
+            </div>
+            <div class="tp-panel-content" role="tabpanel">
+                <form id="dsForm">
+                    <input type="hidden" id="ctrlId">
+
+                    <div class="row data-setting" style="margin-bottom: 0px;">
+                        <div class="col-lg-6" style="width:100%;">
+                            <div class="s1" style="margin-left: 6%;">
+                                <h3 id="ctrlSetTitle" style="margin: 10px 10px 15px 0;"></h3>
+
+                                <div class="s1-input">
+                                    <span>控制上限：</span>
+                                    <input type="text" value="0" id="snsUpVal" name="snsUpVal" style="width:60px;" data-errormessage-value-missing="* 必须是数字" data-errormessage-custom-error="* 必须是数字" data-validation-engine="validate[required,custom[number],maxSize[6],funcCall[compareUpLow]">
+                                    <span class="sensorUnit"></span>
+                                </div>
+                                <div class="s1-input">
+                                    <span>控制下限：</span>
+                                    <input type="text" value="0" id="snsLowVal" name="snsLowVal" style="width:60px;" data-errormessage-value-missing="* 必须是数字" data-errormessage-custom-error="* 必须是数字" data-validation-engine="validate[required,custom[number],maxSize[6],funcCall[compareUpLow]">
+                                    <span class="sensorUnit"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="win-btn1" style="padding: 10px 50px;">
+                        <button class="btn btn-primary" style="padding: 1px 6px;" id="btnset" type="submit">确定</button>
+                        <button class="btn btn-default" style="padding: 1px 6px;margin-left:15px;" type="reset" onclick="$.fancybox.close();">取消
+                    </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="display: none;">
+        <div id="runtimeSet" class="hhide tp-panel" style="width:220px;">
+            <div class="tp-panel-header" id="myTab1">
+                <ul class="nav tp-nav-header">
+                    <li><a class="on no-click">设置</a></li>
+                </ul>
+                <button type="button" class="close" onclick="$.fancybox.close();"></button>
+            </div>
+            <div class="tp-panel-content" role="tabpanel">
+                <form id="runtimeSetform">
+                    <input type="hidden" id="deviceId">
+                    <input type="hidden" id="role">
+
+                    <div class="row data-setting" style="margin-bottom: 0px;">
+                        <div class="col-lg-6" style="width:100%;">
+                            <div class="s1" style="margin-left: 6%;">
+                                <h3 id="runtimeSetTitle" style="margin: 10px 10px 15px 0;"></h3>
+
+                                <div class="s1-input">
+                                    <span>控制时间：</span>
+                                    <input type="text" value="0" id="runTime" name="runTime" style="width:60px;" data-errormessage-value-missing="* 必须是整数" data-errormessage-custom-error="* 必须是整数" data-validation-engine="validate[required,custom[integer],maxSize[6],min[0]">
+                                    <span>分钟</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="win-btn1" style="padding: 10px 50px;">
+                        <button class="btn btn-primary" style="padding: 1px 6px;" id="sureBtn" type="submit">确定</button>
+                        <button class="btn btn-default" style="padding: 1px 6px;margin-left:15px;" type="reset" onclick="$.fancybox.close();">取消
+                    </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="neck-box">
+        <div class="sa-lay">
+            <div class="sa-form sa-form-inline fr">
+                <span class="labels">终端 :</span>
+                <select id="terminalList" style="width: 170px;height: 28px;border-radius: 3px;margin:8px;padding:4px 0 4px 6px;" onchange="terminalSelected();"></select>
+            </div>
+        </div>
+    </div>
+
+    <div id="band8" data-toggle='fullpage' style="margin-top:30px;">
+
+        <div class="sa-lay section" style="width:1200px;height:560px;">
+            <div class="datashow">
+                <div class="proof" id="sensorList"></div>
+            </div>
+
+            <div class="js-cont-left2 kz-cont">
+                <div id="presetNode" class="dict1" style="height: 350px;overflow-y: auto;overflow-x: hidden;">
+
+                </div>
+                <div class="discri1">
+                    <ul>
+                        <li class="rid1 nowr"><em class="pred1 act1"></em> 正在播放</li>
+                        <li class="rid1 ther"><em class="pred1 dun1"></em> 设备待机</li>
+                        <li class="rid1 donm"><em class="pred1 faile1"></em> 连接失败</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="position:relative;width:640px;height:564px;float:left;margin-left: -1px;">
+                <div id="divPlugin" class="kz-sp-bg"></div>
+
+                <div class="" style="position:absolute;left:640px;z-index: 100;width:235px;height:2px;">
+                    <div class="jk-contright1 kzjk" id="leftTd" style="display: block;">
+                        <div class="auto-poin">
+                            <div class="arrows topleft" onmousedown="mouseDownPTZControl(5);" onmouseup="mouseUpPTZControl();"></div>
+                            <div class="arrows topmi" onmousedown="mouseDownPTZControl(1);" onmouseup="mouseUpPTZControl();"></div>
+                            <div class="arrows topright" onmousedown="mouseDownPTZControl(7);" onmouseup="mouseUpPTZControl();"></div>
+                            <div class="arrows midleft" onmousedown="mouseDownPTZControl(3);" onmouseup="mouseUpPTZControl();"></div>
+                            <div class="arrows mid" onmousedown="mouseDownPTZControl(9);" onmouseup="mouseUpPTZControl();"></div>
+                            <div class="arrows minright" onmousedown="mouseDownPTZControl(4);" onmouseup="mouseUpPTZControl();"></div>
+                            <div class="arrows boutleft" onmousedown="mouseDownPTZControl(6);" onmouseup="mouseUpPTZControl();"></div>
+                            <div class="arrows botmi" onmousedown="mouseDownPTZControl(2);" onmouseup="mouseUpPTZControl();"></div>
+                            <div class="arrows butright" onmousedown="mouseDownPTZControl(8);" onmouseup="mouseUpPTZControl();"></div>
+                        </div>
+
+                        <div class="line1" style="height: 285px;">
+                            <!-- <div class="sel-lay ">
+                            <span class="line">3X3</span>
+                           <span class="chars">字码流</span>
+                            </div>-->
+                            <div class="sel-lay1 ">
+                                <select id="wins" onchange="changeWndNum(this.value);" style="padding:4px 0 4px 6px;">
+                                <option value="1">1x1</option>
+                                <option value="2">2x2</option>
+                                <option value="3">3x3</option>
+                                <option value="4">4x4</option>
+                                <option value="6">6x6</option>
+                            </select>
+                            </div>
+                            <div class="sel-lay1">
+                                <select id="streamType" style="margin:10px 14px;padding:4px 0 4px 6px;">
+                                <option value="1">高清</option>
+                                <option value="2" selected>标清</option>
+                                <!-- <option value="3">第三码流</option>
+                                 <option value="4">转码码流</option>-->
+                            </select>
+                            </div>
+                            <div class="kongz1">
+                                <span class="biex" onmousedown="PTZZoomIn();" onmouseup="PTZZoomStop();">变倍+</span>
+                                <span class="biex" onmousedown="PTZZoomout();" onmouseup="PTZZoomStop();">变倍-</span>
+                                <span class="biex" onmousedown="PTZFocusIn();" onmouseup="PTZFoucusStop();">变焦+</span>
+                                <span class="biex" onmousedown="PTZFoucusOut();" onmouseup="PTZFoucusStop();">变焦-</span>
+                                <span class="biex" onclick="clickOpenSound();">开声+</span>
+                                <span class="biex" onclick="clickCloseSound();">关声-</span>
+                            </div>
+                            <div class="cont-ch1">
+                                <span class="qup fullscreen">窗口全屏</span>
+                                <span class="qup" style="margin-left:12px;" id="stopOne">结束选中</span>
+                                <span class="qup" id="startAll">加载全部</span>
+                                <span class="qup" style="margin-left:12px;" id="stopAll">结束全部</span>
+                            </div>
+                        </div>
+                        <!--  <div class="but-sp" >
+                      </div>-->
+                    </div>
+                    <div class="" style="float:left;margin-left: -2px;width: 1px;">
+                        <a id="openbut" href="javascript:closeOpenSider();">
+                            <img src="common/images/tab-sp1.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="kz-cont-right">
+                <div class="anim-con">
+                    <ul class="env-group" id="ctrlList"></ul>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <div style="background-color: #285e8e;z-index: 999999; width: 100%;height: 200px;display:none; ">
+        <div style="display:none">
+            IP地址<input id="loginip" type="text" class="txt" value="111.75.156.200" /> 端口号
+            <input id="port" type="text" class="txt" value="81" /> 用户名
+            <input id="username" type="text" class="txt" value="admin" /> 密码
+            <input id="password" type="password" class="txt" value="12345" /> 设备端口
+            <input id="deviceport" type="text" class="txt" value="8000" />（可选参数）
+            <input type="button" class="btn" value="登录" onclick="clickLogin();" />
+            <input type="button" class="btn" value="退出" onclick="clickLogout();" />
+            <input type="button" class="btn2" value="获取基本信息" onclick="clickGetDeviceInfo();" /> 已登录设备
+            <select id="ip" class="sel" onchange="getChannelInfo();"></select> 通道列表
+            <select id="channels" class="sel">
+        <option value="1" bzero="false">IPdome</option>
+    </select>
+            <input type="button" class="btn" value="开始预览" onclick="clickStartRealPlay();" /> 音量
+            <input type="text" id="volume" class="txt" value="50" maxlength="3" />&nbsp;
+            <input type="button" class="btn" value="设置" onclick="clickSetVolume();" />（范围：0~100） 对讲通道
+            <select id="audiochannels" class="sel"> </select> 云台速度
+            <select id="ptzspeed" class="sel">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option selected>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+    </select>
+            <input type="button" class="btn" value="获取通道" onclick="clickGetAudioInfo();" />
+            <input type="button" class="btn" value="开始对讲" onclick="clickStartVoiceTalk();" />
+            <input type="button" class="btn" value="停止对讲" onclick="clickStopVoiceTalk();" />
+            <input type="button" class="btn" value="抓图" onclick="clickCapturePic();" />
+            <input type="button" class="btn" value="开始录像" onclick="clickStartRecord();" />
+            <input type="button" class="btn" value="停止录像" onclick="clickStopRecord();" />
+            <input type="button" class="btn2" value="启用电子放大" onclick="clickEnableEZoom();" />
+            <input type="button" class="btn2" value="禁用电子放大" onclick="clickDisableEZoom();" />
+            <input type="button" class="btn2" value="启用3D放大" onclick="clickEnable3DZoom();" />
+            <input type="button" class="btn2" value="禁用3D放大" onclick="clickDisable3DZoom();" />
+            <input type="button" class="btn2" value="光圈+" onmousedown="PTZIrisIn()" onmouseup="PTZIrisStop()">
+            <input type="button" class="btn2" value="光圈-" onmousedown="PTZIrisOut()" onmouseup="PTZIrisStop()">
+        </div>
+        <input id="previewPicPath" type="text" class="txt" />&nbsp;
+        <input type="button" class="btn" value="浏览" onclick="clickOpenFileDlg('previewPicPath', 0);" />
+
+        <div id="cbinfo" class="cbinfo" style="float: left; max-height: 180px;overflow: auto;height:180px"></div>
+        <div id="opinfo" class="opinfo" style="max-height: 180px;overflow: auto;height:180px"></div>
+        <input type="hidden" id="jsondata" value={$jsondata}/>
+    </div>
+
+
+
+    <!-- 引入页脚 -->
+
+
+    <div id="footer">
+
+    </div>
+
+
+    <!-- <a class="up" href="javascript:void(0)" style="left: 641px;"></a>
+<a class="down" href="javascript:void(0)" style="left:641px;"></a>
+ -->
+
+
+    <!-- Put your script here -->
+    <script>
+        var windArr = [180]; //, 181];//风速风向
+        var SUCCESS = 1;
+        var statId = -1; //保存当前的基地id
+        var timerDevice = null; //定时器
+        var terminalName = "";
+        var terminalType = 0;
+        var serialNum = ""; //终端序列号
+        winWidth = 640;
+        winHeight = 480;
+        var terminalType = null;
+
+        function terminalSelected() {
+            var stationId = getCookie("stationId");
+            var terminalId = $("#terminalList").val();
+            if (terminalId == 0 || terminalId == null || terminalId == -1) {
+                var nothingStr = '<h3 class="text-danger" style="margin:10px 10px;text-align: center;">无list</h3>';
+                $("#sensorList").html(nothingStr.replace("list", "传感器"));
+                $("#presetNode").html(nothingStr.replace("list", "视频设备"));
+                $("#ctrlList").html(nothingStr.replace("list", "控制设备"));
+                return;
+            }
+
+            $("#sensorList").html('<h3 style="margin:10px 10px;text-align: center;">数据加载中...</h3>');
+            //获取传感器数据
+            $.ajax({
+                type: "GET",
+                url: '/data/getDataByTerId',
+                data: {
+                    "stationId": stationId,
+                    "terminalId": terminalId
+                },
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function(data) {
+                    if (data.code != SUCCESS) { //查询没有成功时
+                        $("#sensorList").html('<h3 class="text-danger" style="margin:10px 10px;text-align: center;">' + data.message + '</h3>');
+                        return false;
+                    }
+                    //动态拼接传感器列表
+                    setSensorList(data);
+                },
+                error: function() {}
+            });
+
+
+            $("#ctrlList").html('<h3 style="margin:10px 10px;text-align: center;">数据加载中...</h3>');
+            //获取控制设备
+            getCtrlDevices();
+            if (timerDevice != null) {
+                clearInterval(timerDevice);
+            }
+            timerDevice = setInterval(getCtrlDevices, 1000 * 5);
+            var selected = $("#terminalList").find("option:selected");
+            terminalName = selected.text();
+            terminalType = selected.attr("type");
+            serialNum = selected.attr("serial");
+
+
+            //切换终端的时候不用刷新视频设备列表，视频是属于基地的
+            if (stationId != statId) {
+                $("#presetNode").html('<h3 style="margin:10px 10px;text-align: center;">数据加载中...</h3>');
+                statId = stationId;
+                //获取视频设备
+                getCameraDevices(stationId);
+                //            $.ajax({
+                //                type: "GET",
+                //                url: '/camera/getCameras',
+                //                data: {
+                //                    stationId: stationId,
+                ////                terminalId:terminalId,
+                //                    deviceTypeId: 7,
+                //                    branch: 7
+                //                },
+                //                dataType: "json",
+                //                cache: false,
+                //                async: false,//等ajax执行完后再返回，同步
+                //                success: function (data) {
+                //                    $("#presetNode").html("");
+                //                    //alert(data.code);//--test
+                ////                    console.log("shipin=" + data.list.length)
+                //                    if (data.code != SUCCESS || data.list.length == 0) {//查询失败
+                //                        $("#presetNode").html('<h3 class="text-danger" style="margin:10px 10px;text-align: center;">暂无视频设备</h3>');
+                ////                        $("#jsondata").val("");
+                ////                        StopAll();
+                ////                        changeWndNum(1);
+                ////                        return;
+                //                    }
+                //                    $("#jsondata").val(JSON.stringify(data.list));
+                //                    dealList();
+                //                },
+                //                error: function () {
+                //                }
+                //            });
+            }
+
+            //同步大田控制设备状态
+            $.ajax({
+                type: "GET",
+                url: '/device/syncDtDevCtrl',
+                data: {
+                    terminalId: terminalId
+                },
+                dataType: "json",
+                cache: false,
+                async: false, //等ajax执行完后再返回，同步
+                success: function(data) {
+                    terminalType = data; //终端类型
+                },
+                error: function() {}
+            });
+        }
+
+        //动态拼接传感器列表
+        function setSensorList(data) {
+            $("#sensorList").html(""); //先清空原来的传感器列表
+            var list = data.list; //获取传感器列表
+
+            var listHTML = '';
+            for (var i = 0; i < list.length; i++) {
+                var obj = list[i];
+                var v = obj.value; //不赋值给变量的时候，应用undefined判断是否有值
+                if (v == null) {
+                    v = "--";
+                } else {
+                    if ($.inArray(obj.sensorTypeId, windArr) > -1) { //风速风向
+                        v = obj.windName;
+                    } else {
+                        v = setPrecision2(obj.sensorName, obj.value);
+                    }
+                }
+                var unit = obj.sensorUnit; //传感器单位
+                if ($.inArray(obj.sensorTypeId, windArr) > -1) {
+                    unit = "";
+                }
+                listHTML += '<div class="strong sunfaie">'
+                listHTML += '<img class="sun_1" src="' + obj.picPath + '"/>' +
+                    '<div><span class="gu-s-k">' + obj.sensorName + '</span>' +
+                    '<span class="dis">' + v + '</span>' +
+                    '<span class="lux">' + unit + '</span></div>';
+                listHTML += '</div>';
+            }
+            $("#sensorList").html(listHTML);
+        }
+
+        //为了解决基地侧边栏需要点击空白处后才能显示的问题
+        AM.ready(function() {
+            $("body").on('mouseenter', '#menubar', function() {
+                $("body").addClass('menubar-visible');
+            });
+            $("body").on('mouseleave', '#menubar', function() {
+                $("body").removeClass('menubar-visible');
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function closeOpenSider() {
+            if (leftTd.style.display == 'none') {
+                $("#leftTd").show();
+                $("#openbut").find("img").attr("src", "./images/tab-sp2.png");
+            } else {
+                $("#leftTd").hide();
+                $("#openbut").find("img").attr("src", "./images/tab-sp1.png");
+            }
+        }
+        $("#leftTd").hide();
+        $("#openbut").find("img").attr("src", "./images/tab-sp1.png");
+    </script>
+    <script type="text/javascript">
+        glo = window.glo || {};
+        glo.temp = 0;
+        glo.init = function() {
+            // Your script Code all here
+            //
+            $(".text-green").each(function() {
+                var that = $(this);
+                var x = setInterval(function() {
+                    glo._updateData(parseInt(Math.random() * 25 + 30), that);
+                }, Math.random() * 2000 + 5000);
+                that.data('_updateData', x);
+            });
+            AM.delay(1500, "bootstrap.min", function() {
+                // 让其展示
+                var m = $("[data-toggle=popover]").eq(0);
+                m.find("i").removeClass("icon-link").addClass("icon-unlink");
+                m.attr('data-content', "连接中断... 请检查设备【数据暂停更新】");
+                // 断开 停止更新
+                var x = m.parents(".item4").find(".text-green").data('_updateData');
+                clearInterval(x);
+                m.popover('show');
+            });
+        };
+
+        glo._updateData = function(num, obj) {
+            var val1 = glo.temp;
+            var val2 = num;
+            glo.temp = num;
+            $({
+                animatedVal: val1
+            }).animate({
+                animatedVal: val2
+            }, {
+                duration: 300,
+                easing: "swing",
+                step: function() {
+                    obj.html(Math.ceil(this.animatedVal)).trigger("change");
+                }
+            });
+        };
+        glo.log = function(obj) {
+            //        console.log('log here');
+        };
+
+        // demo
+        var update_client = function(obj) {
+            App.debug('正在更新终端:' + $(obj).html())
+        };
+
+        function update_site(obj) {
+            App.debug('正在更新基地:' + $(obj).html());
+            return false;
+        }
+    </script>
+</body>
+
+</html>

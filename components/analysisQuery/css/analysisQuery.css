@@ -1,0 +1,69 @@
+.data-pool {
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    background: #fff;
+    box-shadow: 0 0 6px 0 #ccc;
+    border-radius: 5px;
+}
+.hp-tab-newprd {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+.hp-tab-newprd .j-sw-nav {
+    height: 26px;
+    font-size: 12px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+.hp-tab-newprd .j-sw-nav li {
+    float: left;
+    margin-right: -20px;
+    list-style: none;
+}
+.hp-tab-newprd .j-sw-nav li a {
+    position: relative;
+    display: block;
+    width: 140px;
+    height: 26px;
+    line-height: 1.91;
+    padding: 0 20px;
+    text-align: center;
+    text-transform: uppercase;
+    background: url(../../../common/images/bg-tag-off.png) no-repeat 0 0;
+    color: #fefefe;
+    font-weight: bold;
+    word-wrap: break-word;
+    overflow: hidden;
+    outline: 0;
+    cursor: pointer;
+}
+.newprd-s1,
+.newprd-s1 a {
+    z-index: 3;
+}
+.newprd-s2,
+.newprd-s2 a {
+    z-index: 2;
+}
+.newprd-s3,
+.newprd-s3 a {
+    z-index: 1;
+}
+ul.content {
+    margin: 0;
+}
+.hp-tab-newprd .j-sw-nav .on {
+    position: relative;
+    z-index: 19;
+}
+.hp-tab-newprd .j-sw-nav li a:hover,
+.hp-tab-newprd .j-sw-nav .on a {
+    background-image: url(../../../common/images/bg-tag-on.png);
+    z-index: 19;
+    color: #fefefe;
+    text-decoration: none;
+    cursor: pointer;
+}

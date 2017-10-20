@@ -1,0 +1,759 @@
+﻿<!DOCTYPE html>
+
+
+
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>统计分析 | 农业物联网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- for 360 -->
+    <meta name="renderer" content="webkit">
+    <!-- boot -->
+    <link rel="stylesheet" type="text/css" href="common/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="common/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="common/css/layout.css">-->
+    <link rel="stylesheet" type="text/css" href="common/css/layout2.css">
+    <link rel="stylesheet" type="text/css" href="components/analysisQuery/css/analysisQuery.css">
+    <link type="text/css" rel="stylesheet" href="common/js/nanoscroller/nanoscroller.css">
+    <script type="text/javascript" src="common/js/App.nicescroll.js" async="true"></script>
+    <script type="text/javascript" src="common/js/nanoscroller/nanoscroller.js" async="true"></script>
+    <script type="text/javascript" src="common/js/bootstrap.min.js" async="true"></script>
+    <script type="text/javascript" src="common/js/App.component.js" async="true"></script>
+    <script type="text/javascript" src="common/js/App.init2.js" async="true"></script>
+    <script type="text/javascript" src="common/js/jquery-migrate.js" async="true"></script>
+    <script src="common/js/jquery.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="common/js/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="common/js/am.js"></script>
+
+    <!--[if lt IE 9]>
+    <script type="text/javascript">
+        AM.ready(function () {
+            $("html").addClass("iecss");
+        });
+    </script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="header">
+        <div class="sa-lay">
+            <a class="logo" href="company_home.html">
+                <img src="common/picture/default_logo.png" alt="" style="max-width:186px;height:50px;">
+            </a>
+            <ul class="hlist" id="header-nav">
+                <li>
+                    <a href='realtime.html' target='_top'><i class='icon icon-data-chart'></i> 数据展示</a>
+                </li>
+                <li class="active">
+                    <a href='analysisQuery.html' target='_top'><i class='icon icon-note'></i> 统计分析</a>
+                </li>
+                <li>
+                    <a href='environment.html' target='_top'><i class='icon icon-arrows'></i> 环境调控</a>
+                </li>
+                <li>
+                    <a href='center.html' target='_top'><i class='icon icon-users'></i> 用户中心</a>
+                </li>
+                <li>
+                    <a href='projectInfo.html' target='_top'><i class='icon icon-comment-o'></i> 项目信息</a>
+                </li>
+
+            </ul>
+            <ul class="hlist" id="header-btns">
+                <li>
+                    <a class="icon i2 icon-question-circle" title="帮助" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-info-circle" title="关于" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-power-off" title="退出" href="login.html"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script type="text/javascript" src="common/js/am.js"></script>
+
+    <script src="common/js/cookie.js"></script>
+
+    <div id="menubar" class="menubar-inverse animate">
+        <div class="menubar-scroll-panel" style="height:100%; overflow:hidden;">
+            <div class="bg-mask"></div>
+            <ul id="main-menu">
+                <li class="gui-folder">
+                    <div class="gui-icon">
+                        <i class="fa fa-map-marker"></i>基地
+                    </div>
+                    <span class=" title m-header"><i class="fa fa-map-marker"></i> 基地管理</span>
+                    <div class="nano">
+                        <ol id="stationList">
+                        </ol>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        //var stnId;//站点id
+        //var terId;//终端id
+        var stationList = new Array(); //站点列表
+        //判断sesson是否为空，
+        //如果为空发送ajax请求
+        $(function() {
+
+                getStationAjax();
+                //        }
+            })
+            //通过ajax请求获得站点信息,同步，无返回值
+        function getStationAjax() {
+            //获得staionId
+            //获得unitId
+
+            var jdId = "null";
+            if (jdId == "null") {
+                jdId = "";
+            }
+            var unitId = getCookie("unitId");
+            if (unitId == undefined || "" == unitId) {
+                unitId = "";
+            }
+            $.ajax({
+                type: "GET",
+                url: '/siteAjax?station=' + jdId + '&unitId=' + unitId,
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function(data) {
+                    stationList = data;
+                    //                for(var i=0; i<data.length; i++){
+                    //                    stationList[i] = data[i];
+                    //                }
+
+                    //如果返回成功则刷新。
+                    //                if(data=="SUCCESS"){
+                    //                    window.location.reload();
+                    //                }
+                },
+                error: function() {}
+            });
+        }
+
+        $(document).ready(function() {
+            $(".side").hover(function() {
+                if (navigator.appVersion.match(/8./i) == "8.") {
+                    $(this).stop().animate({
+                        "width": "124px"
+                    }, 200)
+                }
+                $(this).find(".sidebox").stop().animate({
+                    "width": "124px"
+                }, 200).css({
+                    "opacity": "1",
+                    "filter": "Alpha(opacity=100)",
+                    "background": "#fff",
+                    "border-right": " solid 1px #dee2e5",
+                    "color": "#000",
+                    "box-shadow": "1px 3px 5px rgba(0,0,0,.15)"
+                });
+                $(this).find(".sidebox").find("div").each(function(i) {
+                    if (i == 1) {
+                        if (navigator.appVersion.match(/8./i) == "8.") {
+                            $(this).delay(200).show(200);
+                        } else {
+                            $(this).fadeIn(1500);
+                        }
+                    }
+                })
+            }, function() {
+                if (navigator.appVersion.match(/8./i) == "8.") {
+                    $(this).stop().animate({
+                        "width": "48px"
+                    }, 200)
+                }
+                $(this).find(".sidebox").stop().animate({
+                    "width": "48px"
+                }, 200).css({
+                    "opacity": "1",
+                    "filter": "Alpha(opacity=100)",
+                    "background": "#d8edbc",
+                    "border-right": "none",
+                    "box-shadow": "none"
+                });
+                $(this).find(".sidebox").find("div").each(function(i) {
+                    if (i == 1) {
+                        $(this).hide();
+                    }
+                })
+            });
+
+            //加载站点下拉框
+            var selHTML = ""; //"<option value='0'>请选择</option>";
+            var stationCookieFlag = false;
+            var stationCookie = getCookie("stationId");;
+            for (var i = 0; i < stationList.length; i++) {
+                var stationId = stationList[i].stationId;
+                var name = stationList[i].name == null ? "" : stationList[i].name;
+                //alert(stationName);//--test
+                selHTML += "<li id='station" + stationId + "' class='station' value='" + stationId + "'>" +
+                    "<a href='javascript:stationSelected(" + stationId + ");'><span>" + name + "</span></a></li>";
+
+                //判断cookie是否在站点存在
+                if (stationCookie == stationId) {
+                    stationCookieFlag = true;
+                }
+            }
+
+            if (selHTML == "" || selHTML.length == 0) {
+                //            alert("对不起，您没有所属的站点！");
+                return;
+            }
+            $("#stationList").html(selHTML);
+
+            bindSiteBar();
+            //当用户有所属的站点，就获取第一个站点的终端列表
+            if (selHTML.length > 0) {
+                var stnId = "null";
+                if (stnId == "null") {
+                    if (stationCookieFlag) {
+                        stnId = getCookie("stationId");
+                    }
+                    //判断站点Id是否在列表内
+                    if (stnId == undefined || "" == stnId || stnId == "null") {
+                        stnId = $(".station").first().attr("value");
+                    }
+                }
+
+                stationSelected(stnId);
+            }
+        });
+        var lastStationId = 0;
+        //选择站点，填充该站点下的终端下拉框，并默认加载该站点第一个终端的数据siteTerminal
+
+        function stationSelected(stationId) {
+            var url = "";
+            if (typeof(branch) != "undefined") {
+                url = "/siteTerminal?stationId=" + stationId + "&branch=" + branch;
+            } else {
+                url = "/siteTerminal?stationId=" + stationId;
+
+            }
+            addCookie("stationId", stationId);
+            var terId = "null";
+            //alert("terID=" + terId);//--test
+            //加载终端下拉框
+
+            if (parseInt(lastStationId) != 0) {
+                //  console.log(lastStationId)
+                $("#station" + lastStationId + " a").removeAttr("style");
+            }
+            $("#station" + stationId + " a").attr("style", "color:#599300");
+            var terminalList = $("#terminalList");
+
+            //if (selHTML.length > 0) {
+            // terminalSelected();
+            //}
+            lastStationId = stationId;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function(data) {
+                    var selHTML = ""; //"<option value='0'>请选择</option>";
+                    if (data.list.length == 0) {
+                        selHTML += "<option value='-1'>没有终端</option>";
+                    }
+                    for (var i = 0; i < data.list.length; i++) {
+                        var obj = data.list[i];
+                        //    console.log(obj);
+                        if (obj[0] == terId) {
+                            selHTML += "<option value='" + obj[0] + "' type='" + obj[2] + "' serial='" + obj[3] + "' selected>" + obj[1] + "</option>";
+                        } else {
+                            selHTML += "<option value='" + obj[0] + "'  type='" + obj[2] + "' serial='" + obj[3] + "'>" + obj[1] + "</option>";
+                        }
+                    }
+                    terminalList.html(selHTML);
+                    if (terId == "null") {
+                        terminalId = parent.getCookie("terminalId");
+                        if (terminalId != undefined || "" != terminalId) {
+                            terminalList.val(terminalId);
+                        }
+                    }
+                    //如果返回成功则刷新。
+                },
+                error: function() {}
+            });
+
+            //如果终端还没有值，则选中第一个
+            var value = $("#terminalList option:selected").attr("value");
+            if (value == undefined) {
+                $("#terminalList option:first").prop("selected", 'selected');
+            }
+            //第一进来需要加载这个
+            initTerminalSelect(terminalList);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //测试时全部默认true
+        var terminalStatus = true;
+        var timerTerminal = null;
+
+        function initTerminalSelect(terminalList) {
+            terminalId = terminalList.val();
+            //当有终端时才放缓存 modified by liuxd 2015-05-07
+            if (terminalId > 0) {
+                parent.addCookie("terminalId", terminalId);
+            }
+            if (timerTerminal != null) {
+                clearInterval(timerTerminal);
+            }
+            checkTerminal();
+            timerTerminal = setInterval(checkTerminal, 1000 * 60);
+            terminalSelected();
+        }
+        //判断终端连接状态
+        function checkTerminal() {
+            //        try {
+            //            $.ajax({
+            //                url: "/baseData/terminal/checknet",
+            //                data: {terminalId: terminalId},
+            //                type: "get",
+            //                dataType: "json",
+            //                cache:false,
+            //                success: function (data) {
+            //                    var terr=$("#terminalError");
+            //                    try {
+            //                        if (data.code != 1) {
+            //                            if (terr) {
+            //                                $("#terminalError").remove();
+            //                            }
+            //                            terminalStatus=false;
+            //                            $("#terminalList").after("<img src='picture/unlink.png' id=\"terminalError\" style='width:26px;' title='"+data.message+"'>");
+            //                        } else {
+            //                            if (terr) {
+            //                                terminalStatus=true;
+            //                                $("#terminalError").remove();
+            //                            }
+            //                        }
+            //                    }catch (ex)
+            //                    {
+            //                        //alert(ex.message);
+            //                    }
+            //                }
+            //            });
+            //        } catch (e) {
+            //        }
+        }
+
+        $(function() {
+            var terminalList = $("#terminalList");
+            terminalList.removeAttr("onchange");
+            terminalList.change(function() {
+                initTerminalSelect(terminalList);
+            });
+
+        })
+
+        function bindSiteBar() {
+            AM.ready("component", function() {
+                    ! function() {
+                        var a = function() {
+                            var m = $("#main-menu ol"),
+                                h = $(window).height() - 55 - 51;
+                            m.height(h);
+                            $(".gui-folder").height(h + 50);
+                            App.nanoScroller('.nano', '.nano ol', function() {
+
+                                $("#menubar .nano-slider").on("mousedown", function() {
+                                    $("body").off('hover', '#menubar');
+                                })
+                                $("body").on("mouseup", "#menubar,#band8,#neck-box,#header", function() {
+                                    var id = $(this).attr("id");
+                                    id != 'menubar' && $("body").removeClass('menubar-visible');
+                                    nano_check();
+                                    $("body").off('hover');
+                                    $("body").on('hover', '#menubar', function() {
+                                        $("body").toggleClass('menubar-visible');
+                                        nano_check();
+                                    })
+
+                                })
+
+
+                            })
+                        }
+                        $(window).on('resize', function() {
+                            a()
+                        })
+                        a();
+                    }()
+                })
+                // 侧边栏添加滚动条
+        }
+
+        function nano_check() {
+            if (/visible/.test($('body').attr('class'))) {
+                $("#menubar .nano-pane").show()
+            } else {
+                $("#menubar .nano-pane").hide()
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="neck-box">
+        <div class="sa-lay">
+            <div class="sa-form sa-form-inline fl">
+                <span class="labels">终端 :</span>
+                <select class="selectBox client-list" id="terminalList"></select>
+                <span class="labels">选择时间 :</span>
+                <input class="inputBox" type="text" id="beginTime" onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd HH:mm:ss',
+                   /*minDate:'2012-01-01 00:00:00',*/
+                        maxDate:'#F{\'%y-%M-%d %H:%m:%s\'}'})" readonly>
+                <span class="labels">至</span>
+                <input class="inputBox" type="text" id="endTime" onclick="WdatePicker({isShowClear:false,dateFmt:'yyyy-MM-dd HH:mm:ss',
+						/*minDate:'#F{$dp.$D(\'beginTime\') || \'2012-01-01 00:00:00\'}',*/
+                        maxDate:'%y-%M-%d %H:%m:%s'})" readonly>
+
+                <div class="btn-search" onclick="dataSelect();"></div>
+            </div>
+            <div id="export" class="sa-form sa-form-inline fr" style="display: none;">
+
+                <span class="labels">导出格式:</span>
+                <select style="background: none;border:1px solid #d5d5d5;border-radius:5px;padding:4px 0 4px 6px;" class="selectBox-sm client-list" id="exportType">
+                    <option value="excel"><i class="fa fa-file-excel-o"></i>Excel</option>
+                    <option value="pdf"><i class="fa fa-file-pdf-o"></i>pdf</option>
+                    <option value="csv"><i class="fa fa-table"></i>csv</option>
+                        
+                </select>
+
+                <div class="btn-output" onclick="exportData();"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="sa-lay">
+        <div class="data-pool">
+            <div class="hp-tab-newprd">
+                <ul class="j-sw-nav">
+                    <li data-toggle="tab" data-target='.vs-data' class="newprd-s1 on">
+                        <a class="branch" data-index="0" onclick='setBranchAndTime(0,".vs-data");'>对比分析</a>
+                    </li>
+
+                    <li data-toggle="tab" data-target='.sq-data' class="newprd-s3">
+                        <a class="branch" data-index="2" onclick='setBranchAndTime(2,".sq-data");'>土壤类数据</a>
+                    </li>
+
+
+                    <li data-toggle="tab" data-target='.qx-data' class="newprd-s2">
+                        <a class="branch" data-index="1" onclick='setBranchAndTime(1,".qx-data");'>气象类数据</a>
+                    </li>
+
+
+                    <li data-toggle="tab" data-target='.sz-data' class="newprd-s5">
+                        <a class="branch" data-index="4" onclick='setBranchAndTime(4,".sz-data");'>水质类数据</a>
+                    </li>
+
+
+                    <li data-toggle="tab" data-target='.zw-data' class="newprd-s4">
+                        <a class="branch" data-index="3" onclick='setBranchAndTime(3,".zw-data");'>作物生理数据</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div data-role="tab-page" class="vs-data">
+                <div id="analysisLine" class="chart-show" data-role="chart" style="width: auto;height: auto;"></div>
+            </div>
+            <div data-role="tab-page" class="sq-data" style="display:none">
+                <table class="table">
+                    <thead id="thead2"></thead>
+                    <tbody id="tbody2"></tbody>
+                </table>
+
+            </div>
+            <div data-role="tab-page" class="qx-data" style="display:none">
+                <table class="table">
+                    <thead id="thead1"></thead>
+                    <tbody id="tbody1"></tbody>
+                </table>
+
+            </div>
+            <div data-role="tab-page" class="sz-data" style="display:none">
+                <table class="table">
+                    <thead id="thead4"></thead>
+                    <tbody id="tbody4"></tbody>
+                </table>
+
+            </div>
+            <div data-role="tab-page" class="zw-data" style="display:none">
+                <table class="table">
+                    <thead id="thead3"></thead>
+                    <tbody id="tbody3"></tbody>
+                </table>
+
+            </div>
+            <center>
+                <div id="pagination" class="pagination" style="display: none;"></div>
+            </center>
+        </div>
+    </div>
+
+    <!-- 引入页脚 -->
+
+
+    <div id="footer">
+
+    </div>
+
+
+    <script src="common/js/WdatePicker/WdatePicker.js"></script>
+    <script src="common/js/highcharts.js"></script>
+    <script src="common/js/highcharts-3d.js"></script>
+    <script src="common/js/exporting.js"></script>
+    <script src="common/js/no-data-to-display.js"></script>
+    <script src="common/js/common.min.js"></script>
+    <script src="common/js/pagination.js"></script>
+    <script src="common/js/common.js"></script>
+    <script src="common/js/cookie.js"></script>
+    <script src="common/js/analysisquery.js"></script>
+    <script type="text/javascript">
+        Highcharts.setOptions({
+            lang: {
+                printChart: "打印图表",
+                downloadJPEG: "下载JPEG 图片",
+                downloadPDF: "下载PDF文档",
+                downloadPNG: "下载PNG 图片",
+                downloadSVG: "下载SVG 矢量图",
+                exportButtonTitle: "导出图片"
+            }
+        });
+        var chart = new Highcharts.Chart('analysisLine', {
+            chart: {
+                defaultSeriesType: 'spline',
+                theme: 'default' //主题默认
+            },
+            title: {
+                text: '对比分析数据'
+            },
+            exporting: { //导出按钮是否可用
+                enabled: true
+            },
+            xAxis: {
+                categories: ['09-23 00:00', '09-23 02:30', '09-23 05:00', '09-23 07:30', '09-23 10:00', '09-23 12:30', '09-23 15:00', '09-23 17:30', '09-23 20:00', '09-23 22:30'],
+                lineWidth: 1, //基线宽度
+                type: 'datetime', //X轴为日期时间类型
+                tickPixelInterval: 150 //X轴标签间隔
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                gridLineWidth: 1, //设置网格宽度为1
+                lineWidth: 1, //基线宽度
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }],
+                max: 100, //Y轴最大值
+                min: -25 //Y轴最小值
+            },
+            credits: {
+                enabled: false //右下角图表版权信息不显示
+            },
+            tooltip: {
+                valueSuffix: '°C'
+            },
+            legend: {
+                align: "left", //程度标的目标地位
+                verticalAlign: "bottom" //垂直标的目标地位
+            },
+            series: [{
+                name: '土壤温度01-[1]',
+                data: [23.6, 23.5, 23.3, 23.2, 23.1, 23.1, 23.0, 23.0, 23.0, 23.1]
+            }, {
+                name: 'test1',
+                data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1]
+            }, {
+                name: 'test2',
+                data: [-2.2, 13.8, 5.7, 13.3, 57.0, 42.0, 34.8, 64.1, 24.1, 12.1]
+            }, {
+                name: 'test3',
+                data: [-22, 1, 37, 43, 20, 30, 21.8, 23.1, 90.1, 24.1]
+            }, {
+                name: 'test4',
+                data: [-10.2, 30.8, 45.7, 15.3, 27.0, 2.0, 4.8, 25.1, 70.1, 24.1]
+            }, {
+                name: 'test5',
+                data: [-0.22, 10.8, 55.7, 11.3, 17.0, 22.0, 35.8, 12, 2.1, 54.1]
+            }],
+
+            plotOptions: {
+                line: {
+                    events: {
+                        legendItemClick: function() {
+                            return false; //点击图注不会使曲线不可见，默认可以为true
+                        }
+                    },
+                    showInLegend: false //是否显示图注
+                }
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+        //获取用户权限中有的分支类型
+        var branchList = "2,1,4,3";
+        //    $(function(){
+        //        $(".vs001").on("click",function(){
+        //            var a = $(this).data('index');
+        //            alert(a);
+        //        })
+        //    })
+        //    AM.ready("component","bootstrap.min",'init2',function(){
+        //        //TODO  Page code
+        //    })
+        //    AM.ready('init2', 'highcharts', function () {
+        //        //TODO  Page code
+        //        $("[data-role=chart]").each(function (index) {
+        //            $(this).highcharts({
+        //                title: {
+        //                    text: '对比分析数据',
+        //                    x: -20 //center
+        //                },
+        //                subtitle: {
+        //                    text: '来源：你懂的',
+        //                    x: -20
+        //                },
+        //                xAxis: {
+        //                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        //                },
+        //                credits: {
+        //                    text: 'Top17.com',
+        //                    href: 'http://www.top17.com'
+        //                },
+        //                yAxis: {
+        //                    title: {
+        //                        text: '温度 (℃)'
+        //                    },
+        //                    plotLines: [{
+        //                        value: 0,
+        //                        width: 1,
+        //                        color: '#808080'
+        //                    }]
+        //                },
+        //                tooltip: {
+        //                    valueSuffix: '℃'
+        //                },
+        //                legend: {
+        //                    align: 'center',
+        //                    verticalAlign: 'bottom',
+        //                    borderWidth: 0
+        //                },
+        //                series: [{
+        //                    name: '杭州',
+        //                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+        //                }, {
+        //                    name: '上海',
+        //                    data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+        //                }, {
+        //                    name: '北京',
+        //                    data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+        //                }, {
+        //                    name: '深圳',
+        //                    data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+        //                }]
+        //            });
+        //
+        //        });
+        //    })
+    </script>
+</body>
+
+</html>

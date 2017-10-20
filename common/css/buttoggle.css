@@ -1,0 +1,49 @@
+﻿.env-item{
+position: relative;
+height: 91px;
+margin-top: 11px;
+margin-left: 11px;
+border-bottom: 1px solid #bebebe;
+width: 181px;
+}
+.env-item .e-name{
+
+	color: #5bc247;
+	font-weight: 600;
+	position: absolute;
+	left: 1px;
+	top: 16px;
+	height: 20px;
+	line-height: 15px;
+	width: 91px;
+	text-align: center;
+	font-size: 12px;
+}
+.env-item .e-mode{position: absolute; left: 96px; top: 10px; background: url(../images/btn_mode_bg.png) no-repeat;width: 84px; height: 30px; cursor: pointer;}
+.env-item .e-mode .marganer{left: 45px;}
+.env-item .e-slider{position: absolute; left: 5px; top: 4px; background: url(../images/btn_mode_slider.png) no-repeat;width: 36px; height: 20px;}
+.env-item .e-state{
+
+    position: absolute;
+
+width: 190px;
+height: 45px;left: 5px;
+top: 48px;
+}
+
+.env-item .e-state div{float: left; margin-right: 5px; position: relative; cursor: pointer;}
+.env-item .s-close i{position: absolute; background: url(../images/btn_light_close.png) no-repeat; width: 16px; height: 16px; left: 20px; bottom: -10px;}
+.env-item .s-open i{position: absolute; background: url(../images/btn_light_open.png) no-repeat; width: 16px; height: 16px; left: 20px; bottom: -10px;}
+
+
+
+.env-item .e-state .s-{background:url(../images/rbs.png);width:58px; height:22px;text-align: center;
+	line-height: 1.5;
+	color: #fff;
+	font-weight: 600;}
+.env-item .e-state .s-hover{background:url(../images/rbs.png) -120px 0px no-repeat;width:58px; height:22px;}
+.env-item .e-state .s-disable{
+	text-align: center;
+	line-height: 1.5;
+	color: #bcbcbc;
+	background:url(../images/rbs.png) -60px 0px;width:58px; height:22px; cursor: default;}

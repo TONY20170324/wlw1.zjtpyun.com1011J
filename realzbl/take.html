@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+
+
+
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <!-- boot -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/layout2.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src=" js/jquery-migrate.js"></script>
+    <script type="text/javascript" src="js/am.js"></script>
+    <link href="css/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+    <link href="css/bar.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div class="sa-lay">
+            <a class="logo" href="/company_home">
+                <img src="../common/picture/default_logo.png" alt="" style="max-width:186px;height:50px;">
+            </a>
+            <ul class="hlist" id="header-nav">
+                <li class="active">
+                    <a href='../realtime.html' target='_top'><i class='icon icon-data-chart'></i> 数据展示</a>
+                </li>
+                <li>
+                    <a href='../analysisQuery.html' target='_top'><i class='icon icon-note'></i> 统计分析</a>
+                </li>
+                <li>
+                    <a href='../environment.html' target='_top'><i class='icon icon-arrows'></i> 环境调控</a>
+                </li>
+                <li>
+                    <a href='../center.html' target='_top'><i class='icon icon-users'></i> 用户中心</a>
+                </li>
+                <li>
+                    <a href='../projectInfo.html' target='_top'><i class='icon icon-comment-o'></i> 项目信息</a>
+                </li>
+            </ul>
+            <ul class="hlist" id="header-btns">
+                <li>
+                    <a class="icon i2 icon-question-circle" title="帮助" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-info-circle" title="关于" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-power-off" title="退出" href="/user/vali/logout"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="neck-box">
+        <div class="sa-lay">
+            <ul class="hlist fl" id="data-menu">
+                <li>
+                    <a href='../realtime.html' target='_top' class="tab-brown"><i
+                            class='icon i20 icon-02'></i> 土壤类</a>
+                </li>
+                <li>
+                    <a href='/data/realqxl' target='_top' class="tab-orange"><i
+                            class='icon icon-01'></i> 气象类</a>
+                </li>
+                <li>
+                    <a href='/data/realszl' target='_top' class="tab-blue"><i
+                            class='icon i20 icon-03'></i> 水质类</a>
+                </li>
+                <li>
+                    <a href='/data/realzwsl' target='_top' class="tab-yellow"><i
+                            class='icon i20 icon-04'></i> 作物生理</a>
+                </li>
+                <li class="active">
+                    <a href='picture.html' target='_top' class="tab-green"><i
+                            class='icon i20 icon-05'></i> 植保类</a>
+                </li>
+                <li>
+                    <a href='/data/realzwtx' target='_top' class="tab-green2"><i
+                            class='icon i20 icon-06'></i> 作物照片</a>
+                </li>
+                <li>
+                    <a href='../realspjk.html' target='_top' class="tab-blue2"><i
+                            class='icon i20 icon-07'></i> 视频监控</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="offcanvas">
+        <div class="sa-lay">
+            <!-- e -->
+            <div class="sa-panel sa-responsive fl" style="width:1048px;">
+                <div class="sa-header">
+                    <div class="sa-header-con">
+                        <!-- header 内容 -->
+                        <ul class="sa-nav">
+                            <li>
+                                <a href="javascript:void(0)" class="sa-back" data-role="back"></a>
+                            </li>
+                            <li><a href="javascript:void(0)" class="sa-tab on">拍一张</a></li>
+                        </ul>
+                    </div>
+                    <div class="sa-header-right">
+                        <div class="sa-nav-btns">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="sa-content">
+                    <div class="sa-con-inner">
+                        <div class="sa-inner-content" style="">
+                            <!-- s -->
+
+                            <!-- demo for 拍一张 -->
+                            <div class="photo-main">
+                                <div class="photo-desc">
+                                </div>
+                                <div class="photo-circle">
+                                    <div class="camara camara-1" data-id="1">1</div>
+                                    <div class="camara camara-2" data-id="2">2</div>
+                                    <div class="camara camara-3" data-id="3">3</div>
+                                    <div class="camara camara-4" data-id="4">4</div>
+                                    <div class="camara camara-5" data-id="5">5</div>
+                                    <div class="camara camara-6" data-id="6">6</div>
+                                    <div class="camara camara-7" data-id="7">7</div>
+                                    <div class="camara camara-8" data-id="8">8</div>
+                                </div>
+                                <div class="action-progress">
+                                    <div class="progressBar">
+                                        <div class="progress-border"></div>
+                                        <div class="progressing" style="width:0%"></div>
+                                        <div class="progress-value"></div>
+                                        <div class="progress-time"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- demo for 拍一张 -->
+                            <!-- e s -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sa-footer">
+                    <div class="sa-footer-con"></div>
+                    <div class="sa-footer-right"></div>
+                </div>
+            </div>
+            <!-- end e -->
+
+
+
+
+
+            <div class="sa-sidemenu fr">
+                <div class="sa-sm-header">
+
+                    <small>虫情测报灯20</small>
+                </div>
+                <div class="sa-sm-content">
+                    <ul>
+                        <li>
+                            <a href="picture.html"><i
+                        class="sa sa-pic"></i><span>图像</span></a>
+                        </li>
+                        <li>
+                            <a href="state.html"><i
+                        class="sa sa-eyes"></i><span>状态</span></a>
+                        </li>
+                        <li>
+                            <a class="active" href="take.html">
+                                <i class="sa sa-photo"></i><span>拍一张</span></a>
+                        </li>
+                        <li>
+                            <a href="set.html"><i
+                                class="sa sa-cog"></i><span>设置</span></a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="footer">
+
+    </div>
+
+    <script>
+        AM.ready("init2", function() {})
+        $(function() {
+            var now_bin_num = get_now_bin();
+            $(".camara-" + now_bin_num).addClass("camara-active");
+
+            $(".photo-circle .camara").click(function() {
+                $(".photo-circle .camara").removeClass("camara-active");
+                $(this).addClass("camara-active");
+                take_pid($(this).data("id"));
+            })
+        });
+
+        function take_pid(bin_num) {
+            var now_bin_num = get_now_bin();
+            var intval = 10 * 5;
+            jQuery.fn.anim_progressbar = function(aOptions) {
+                // def values
+                var iCms = 1000;
+                var iMms = 60 * iCms;
+                var iHms = 3600 * iCms;
+                var iDms = 24 * 3600 * iCms;
+
+                // def options
+                var aDefOpts = {
+                    start: new Date(), // now
+                    finish: new Date().setTime(new Date().getTime() + 60 * iCms), // now + 60 sec
+                    interval: 100
+                }
+                var aOpts = jQuery.extend(aDefOpts, aOptions);
+                var vPb = this;
+
+                // each progress bar
+                return this.each(
+                    function() {
+                        var iDuration = aOpts.finish - aOpts.start;
+
+                        // calling original progressbar
+                        $(vPb).children('.progressing').progressbar();
+
+                        // looping process
+                        var vInterval = setInterval(
+                            function() {
+                                var iLeftMs = aOpts.finish - new Date(); // left time in MS
+                                var iElapsedMs = new Date() - aOpts.start, // elapsed time in MS
+                                    iDays = parseInt(iLeftMs / iDms), // elapsed days
+                                    iHours = parseInt((iLeftMs - (iDays * iDms)) / iHms), // elapsed hours
+                                    iMin = parseInt((iLeftMs - (iDays * iDms) - (iHours * iHms)) / iMms), // elapsed minutes
+                                    iSec = parseInt((iLeftMs - (iDays * iDms) - (iMin * iMms) - (iHours * iHms)) / iCms), // elapsed seconds
+                                    iPerc = (iElapsedMs > 0) ? iElapsedMs / iDuration * 100 : 0; // percentages
+
+                                // display current positions and progress
+                                $(vPb).children('.progress-value').html('<b>' + iPerc.toFixed(1) + '%</b>');
+                                $(vPb).children('.progress-time').html(iMin + '分' + iSec + '秒</b>');
+                                $(vPb).children('.progressing').css('width', iPerc + '%');
+
+                                // in case of Finish
+                                if (iPerc >= 100) {
+                                    clearInterval(vInterval);
+                                    $(vPb).children('.progress-value').html('<b>100%</b>');
+                                    $(vPb).children('.progress-time').html('拍照完成');
+                                }
+                            }, aOpts.interval
+                        );
+                    }
+                );
+            }
+
+            $.ajax({
+                url: "/insect/realtime/data/ajax_manual_pic",
+                type: 'get',
+                dataType: 'html',
+                async: true,
+                data: {
+                    bin_num: bin_num,
+                    device_id: 35643
+                },
+                success: function(data) {
+                    if (data == 'succ') {
+                        alert('拍照指令已发送!');
+
+                        // from second #5 till 15
+                        var iNow = new Date().setTime(new Date().getTime()); // now plus 5 secs
+                        var iEnd = new Date().setTime(new Date().getTime() + intval * 1000); // now plus 15 secs
+                        $('.progressBar').anim_progressbar({
+                            start: iNow,
+                            finish: iEnd,
+                            interval: 100
+                        });
+                    } else {
+                        alert('拍照指令发送失败!');
+                    }
+                }
+            });
+        }
+
+        function get_now_bin() {
+            var now_bin = '';
+            $.ajax({
+                url: "/insect/realtime/data/get_now_bin?device_id=35643",
+                type: 'get',
+                dataType: 'html',
+                async: false,
+                success: function(data) {
+                    now_bin = data;
+                },
+                error: function() {
+                    now_bin = 1;
+                }
+            });
+            return now_bin;
+        }
+    </script>
+</body>
+
+</html>

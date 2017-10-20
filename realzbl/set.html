@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+
+
+
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/layout2.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+  <script type="text/javascript" src="js/html5.js"></script>
+  <![endif]-->
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src=" js/jquery-migrate.js"></script>
+    <script type="text/javascript" src="js/top.core.js"></script>
+    <script type="text/javascript" src="js/top.ajax.js"></script>
+    <script type="text/javascript" src="js/top.showpage.js"></script>
+    <script type="text/javascript" src="js/am.js"></script>
+
+    <!--[if lt IE 9]>
+  <script type="text/javascript">
+    AM.ready(function () {
+      $("html").addClass("iecss");
+    });
+  </script>
+  <![endif]-->
+</head>
+
+<body>
+    <div id="header">
+        <div class="sa-lay">
+            <a class="logo" href="/company_home">
+                <img src="../common/picture/default_logo.png" alt="" style="max-width:186px;height:50px;">
+            </a>
+            <ul class="hlist" id="header-nav">
+                <li class="active">
+                    <a href='../realtime.html' target='_top'><i class='icon icon-data-chart'></i> 数据展示</a>
+                </li>
+                <li>
+                    <a href='../analysisQuery.html' target='_top'><i class='icon icon-note'></i> 统计分析</a>
+                </li>
+                <li>
+                    <a href='../environment.html' target='_top'><i class='icon icon-arrows'></i> 环境调控</a>
+                </li>
+                <li>
+                    <a href='../center.html' target='_top'><i class='icon icon-users'></i> 用户中心</a>
+                </li>
+                <li>
+                    <a href='../projectInfo.html' target='_top'><i class='icon icon-comment-o'></i> 项目信息</a>
+                </li>
+            </ul>
+            <ul class="hlist" id="header-btns">
+                <li>
+                    <a class="icon i2 icon-question-circle" title="帮助" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-info-circle" title="关于" href="#"></a>
+                </li>
+                <li>
+                    <a class="icon i2 icon-power-off" title="退出" href="/user/vali/logout"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="neck-box">
+        <div class="sa-lay">
+            <ul class="hlist fl" id="data-menu">
+                <li>
+                    <a href='../realtime.html' target='_top' class="tab-brown"><i
+                            class='icon i20 icon-02'></i> 土壤类</a>
+                </li>
+                <li>
+                    <a href='/data/realqxl' target='_top' class="tab-orange"><i
+                            class='icon icon-01'></i> 气象类</a>
+                </li>
+                <li>
+                    <a href='/data/realszl' target='_top' class="tab-blue"><i
+                            class='icon i20 icon-03'></i> 水质类</a>
+                </li>
+                <li>
+                    <a href='/data/realzwsl' target='_top' class="tab-yellow"><i
+                            class='icon i20 icon-04'></i> 作物生理</a>
+                </li>
+                <li class="active">
+                    <a href='picture.html' target='_top' class="tab-green"><i
+                            class='icon i20 icon-05'></i> 植保类</a>
+                </li>
+                <li>
+                    <a href='/data/realzwtx' target='_top' class="tab-green2"><i
+                            class='icon i20 icon-06'></i> 作物照片</a>
+                </li>
+                <li>
+                    <a href='../realspjk.html' target='_top' class="tab-blue2"><i
+                            class='icon i20 icon-07'></i> 视频监控</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="offcanvas">
+        <div class="sa-lay">
+            <!-- e -->
+
+            <div class="sa-panel sa-responsive fl" style="width:1048px;">
+                <div class="sa-header">
+                    <div class="sa-header-con">
+                        <!-- header 内容 -->
+                        <ul class="sa-nav">
+                            <li>
+                                <a href="javascript:void(0)" class="sa-back" data-role='back'></a>
+                            </li>
+                            <li><a href="javascript:void(0)" class="sa-tab on">设置</a></li>
+                        </ul>
+                    </div>
+                    <div class="sa-header-right">
+                        <div class="sa-nav-btns">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="sa-content">
+                    <div class="sa-con-inner">
+                        <div class="sa-inner-content" style="">
+                            <!-- s -->
+                            <!-- demo for 设置 -->
+                            <div class="setting-main">
+                                <ul>
+                                    <li>
+                                        <a data-toggle="setting" data-target="模式选择" class="set-btn set-1" href="javascript:void(0)"></a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="setting" data-target="开关灯" class="set-btn set-2" href="javascript:void(0)"></a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="setting" data-target="定时拍照" class="set-btn set-3" href="javascript:void(0)"></a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="setting" data-target="远程重启" class="set-btn set-4" href="javascript:void(0)"></a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="setting" data-target="电量报警" class="set-btn set-5" href="javascript:void(0)"></a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="setting" data-target="流量设置" class="set-btn set-6" href="javascript:void(0)"></a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="setting" data-target="位置报警" class="set-btn set-7" href="javascript:void(0)"></a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="setting" data-target="恢复出厂" class="set-btn set-8" href="javascript:void(0)"></a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="setting" data-target="绑定手机号" class="set-btn set-9" href="javascript:void(0)"></a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="setting" data-target="密码修改" class="set-btn set-10" href="javascript:void(0)"></a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <!-- end demo for 状态 -->
+                            <!-- 内容区域 -->
+                            <!-- e s -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sa-footer">
+                    <div class="sa-footer-con"></div>
+                    <div class="sa-footer-right"></div>
+                </div>
+            </div>
+
+            <!-- end e -->
+
+
+
+
+
+            <div class="sa-sidemenu fr">
+                <div class="sa-sm-header">
+
+                    <small>虫情测报灯20</small>
+                </div>
+                <div class="sa-sm-content">
+                    <ul>
+                        <li>
+                            <a href="picture.html"><i
+                        class="sa sa-pic"></i><span>图像</span></a>
+                        </li>
+                        <li>
+                            <a href="state.html"><i
+                      class="sa sa-eyes"></i><span>状态</span></a>
+                        </li>
+                        <li>
+                            <a href="take.html">
+                                <i class="sa sa-photo"></i><span>拍一张</span></a>
+                        </li>
+
+
+
+
+                        <li>
+                            <a class="active" href="set.html"><i
+                                class="sa sa-cog"></i><span>设置</span></a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div id="footer">
+
+    </div>
+
+    <script type="text/javascript">
+        AM.ready("init2", 'jquery.bootstrap.min', 'showWin', function() {
+            // TODO Page Code...
+            // 开关按钮
+            var TP_Control = function() {
+                var o = this;
+                o.init();
+            }
+            var p = TP_Control.prototype;
+
+            p.init = function() {
+                    // bind event
+                    $("[data-toggle=setting]").on("click", function() {
+                        var tar = $(this).data('target');
+                        switch (tar) {
+                            case "模式选择":
+                                p.mode();
+                                break;
+                            case "开关灯":
+                                p.light();
+                                break;
+                            case "定时拍照":
+                                p.photo_time();
+                                break;
+                            case "远程重启":
+                                p.restart();
+                                break;
+                            case "电量报警":
+                                p.power_alert();
+                                break;
+                            case "流量设置":
+                                p.flow_set();
+                                break;
+                            case "位置报警":
+                                p.pos_alert();
+                                break;
+                            case "恢复出厂":
+                                p.reset();
+                                break;
+                            case "绑定手机号":
+                                p.bind_phone();
+                                break;
+                            case "密码修改":
+                                p.pwd_update();
+                                break;
+                            default:
+                                break;
+                        }
+                    })
+                }
+                // 模式选择
+            p.mode = function() {
+                    p._show_win("/insect/remote/set/pattern_change?device_id=35643");
+                }
+                // 开关灯
+            p.light = function() {
+                    if (confirm('确定要开关灯吗？')) {
+                        var url = "/insect/remote/set/lighting";
+                        $.ajax({
+                            url: url,
+                            type: 'get',
+                            dataType: 'html',
+                            data: {
+                                device_id: 35643
+                            },
+                            success: function(data) {
+                                if (data == 'succ') {
+                                    alert('开关灯发送成功，请稍后！');
+                                } else {
+                                    alert('开关灯发送失败！');
+                                }
+                            }
+                        });
+                    }
+                }
+                // 定时拍照
+            p.photo_time = function() {
+                    p._show_win("/insect/remote/set/kill_insect_time?device_id=35643");
+                }
+                // 远程重启
+            p.restart = function() {
+                    $.messager.model = {
+                        ok: {
+                            text: "立刻重启",
+                            classed: 'btn-default'
+                        },
+                        cancel: {
+                            text: "取消",
+                            classed: 'btn-danger'
+                        }
+                    };
+                    $.messager.confirm("远程重启", "远程重启说明.....", function() {
+                        var url = "/insect/remote/set/remote_reboot?device_id=35643";
+                        $.ajax({
+                            url: url,
+                            type: 'get',
+                            dataType: 'html',
+                            success: function(data) {
+                                if (data == 'succ') {
+                                    alert('远程重启指令已发送，请稍后！');
+                                } else {
+                                    alert('远程重启指令发送失败！');
+                                }
+                            }
+                        });
+                    });
+                }
+                // 电量报警
+            p.power_alert = function() {
+                    p._show_win("/insect/alarm/set?device_id=35643");
+                }
+                // 流量设置
+            p.flow_set = function() {
+                    p._show_win("/insect/alarm/set/flow?device_id=35643");
+                }
+                // 位置报警
+            p.pos_alert = function() {
+                    p._show_win("/insect/alarm/set/location?device_id=35643");
+                }
+                // 恢复出厂
+            p.reset = function() {
+                    $.messager.model = {
+                        ok: {
+                            text: "恢复出厂",
+                            classed: 'btn-default'
+                        },
+                        cancel: {
+                            text: "取消",
+                            classed: 'btn-danger'
+                        }
+                    };
+                    $.messager.confirm("恢复出厂", "恢复出厂说明.....", function() {
+                        var url = "/insect/remote/set/factory_reset?device_id=35643";
+                        $.ajax({
+                            url: url,
+                            type: 'get',
+                            dataType: 'html',
+                            success: function(data) {
+                                if (data == 'succ') {
+                                    -
+                                    alert('恢复出厂指令发送成功，请稍后！');
+                                } else {
+                                    alert('恢复出厂指令发送失败！');
+                                }
+                            }
+                        });
+                    });
+                }
+                // 绑定手机号
+            p.bind_phone = function() {
+                    p._show_win("/insect/remote/set/mobile_bind?device_id=35643");
+                }
+                // 密码修改
+            p.pwd_update = function() {
+                p._show_win("/insect/remote/set/passwd_reset?device_id=35643");
+            }
+            p._show_win = function(url) {
+                App.win({
+                    id: 'win-modal', //可控制样式
+                    title: "配置",
+                    mask: 1,
+                    width: 0,
+                    content_only: 1,
+                    button: 0,
+                    loading: {
+                        url: url,
+                        callback: function(e) {
+                            var w = $(e).width();
+                            win = $('.win-mod');
+                            win.css({
+                                width: w + "px",
+                                top: "100px",
+                                left: $(window).width() / 2,
+                                marginLeft: -w / 2
+                            })
+                            return e;
+                        }
+                    }
+                });
+            }
+
+            var tp_ctrl = new TP_Control;
+        })
+    </script>
+</body>

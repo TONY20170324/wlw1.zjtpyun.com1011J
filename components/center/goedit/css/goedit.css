@@ -1,0 +1,57 @@
+html {}
+
+.sa-form {
+    width: 100%;
+    padding: 15px;
+    overflow: auto;
+}
+
+.sa-form .sa-checkbox {
+    position: relative;
+    top: 2px;
+}
+
+.sa-row {
+    padding: 10px 0px;
+}
+
+.sa-labels {
+    width: 120px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+.tp-panel-header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2
+}
+
+.inputBox {
+    background: none;
+    border: 1px solid #d5d5d5;
+    border-radius: 5px;
+    width: 220px;
+}
+
+.sa-checkbox {
+    margin-top: 5px;
+}
+
+.sa-btns {
+    text-align: center;
+}
+
+.tp-panel-content {
+    padding: 37px 20px 25px 25px;
+    /*margin-top: 22px;*/
+}
+
+.table tbody {
+    border-bottom: 1px solid #d5d5d5;
+}
+
+body {
+    background: #ffffff;
+}

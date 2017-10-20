@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>物联网监控平台</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../../../common/css/layout2.css">
+    <script type="text/javascript" src="../../../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../../../common/js/jquery-migrate.js"></script>
+
+    <script type="text/javascript" src="../../../common/js/am.js"></script>
+    <link rel="stylesheet" href="css/goedit.css">
+    <link rel="stylesheet" href="../../../common/css/ui-dialog.css" />
+    <script src="../../../common/js/dialog-plus.js"></script>
+    <script type="text/javascript" src="../../../common/js/jquery.toptab.js"></script>
+    <script type="text/javascript" src="js/user_info_edit.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../../../common/js/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript">
+        AM.ready(function () {
+            $("html").addClass("iecss");
+        })
+    </script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="tp-panel">
+        <div class="tp-panel-header hhide " id="myTab">
+            <ul class="nav tp-nav-header">
+                <li><a class="on">修改信息</a></li>
+            </ul>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="tp-panel-content" role="tabpanel">
+            <form id="edit_user_info" class="sa-form">
+                <div class="sa-row">
+                    <div class="sa-labels fl">原密码
+                        <font color="red">*</font>
+                    </div>
+                    <div id="myOldPwd">
+                    </div>
+
+                </div>
+                <div class="sa-row">
+                    <div class="sa-labels fl">新密码</div>
+                    <div id="myNewPwd"></div>
+
+                </div>
+                <div class="sa-row">
+                    <div class="sa-labels fl">确认密码</div>
+                    <div id="myConfirmPwd"></div>
+
+                </div>
+                <div class="sa-row">
+                    <div class="sa-labels fl">角色</div>
+                    <div class="fl">
+
+                    </div>
+                </div>
+                <div class="sa-row">
+                    <div class="sa-labels fl">性别</div>
+                    <div class="fl">
+                        <input type="radio" name="sex" checked value="1" class="sa-checkbox"> 男
+                        <input type="radio" name="sex" value="0" class="sa-checkbox" style="margin-left:20px;"> 女
+                    </div>
+                </div>
+                <div class="sa-row">
+                    <div class="sa-labels fl">联系人
+                        <font color="red">*</font>
+                    </div>
+                    <input type="text" id="truename" value="郭光" class="inputBox" />
+                    <span id="truename_error"></span>
+                </div>
+                <div class="sa-row">
+                    <div class="sa-labels fl">手机号码</div>
+                    <input type="text" id="mobile" value="" class="inputBox" />
+                    <span id="mobile_error"></span>
+                </div>
+                <div class="sa-row">
+                    <div class="sa-labels fl">Email</div>
+                    <input type="text" id="email" value="" class="inputBox" />
+                    <span id="email_error"></span>
+                </div>
+                <div class="sa-row sa-btns">
+                    <div id="addForm-item-error"></div>
+                    <input type="hidden" id="userId" value="227">
+                    <input type="button" id="mSave" class="btn btn-primary" value="确定" style="margin-right:20px;" />
+                    <input type="reset" class="btn btn-default" id="mReset" value="取消" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        AM.ready("nicescroll", function() {
+            $('.tp-panel-content').css('height', $('#fancybox-content', window.parent.document).height()).niceScroll({
+                cursorcolor: "#cfcfcf",
+                cursoropacitymax: 1,
+                touchbehavior: false,
+                cursorwidth: "5px",
+                cursorborder: "0",
+                cursorborderradius: "5px",
+                autohidemode: false
+            });
+        })
+    </script>
+</body>
+
+</html>

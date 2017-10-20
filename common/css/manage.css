@@ -1,0 +1,46 @@
+﻿/*.sa-lay{background: url("../images/bg_1.png") -2px -1px no-repeat;}*/
+
+.kz-cont {
+    margin-left: 15px;
+    background: url("../images/qua-left-1.png") no-repeat;
+    width: 132px;
+    height: 480px;
+    float: left;
+    overflow: hidden;
+}
+
+.kzjk {
+    background: url("../images/kz-cont-bg.png") no-repeat;
+    height: 481px;
+    margin-left: -2px;
+    padding-top: 2px;
+    padding-left: 14px;
+    width: 230px;
+    float: left;
+}
+
+.cont-ch1 {
+    margin-top: 10px;
+    overflow: hidden;
+    float: left;
+}
+
+.cont-ch1 span {
+    width: 83px;
+    height: 36px;
+    float: left;
+    background: url("../images/by_bg.png") 0px -150px no-repeat;
+    margin-left: 5px;
+    margin-top: 6px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    line-height: 38px;
+    font-family: "����";
+}
+
+.sun_1 {
+    width: 46px;
+    height: 46px;
+    margin: 11px 2px;
+}
