@@ -59,25 +59,25 @@ $(function () {
         $('.user-pw').html('<input type="text" name="username" value="" id="username" class="text input-user" placeholder="用户名"> <input type="text" name="password" value="" id="password"  onfocus=\'this.type="password"\'  autocomplete="off" class="text input-password" placeholder="密码">');
     }
 
-    //获取cookie,赋值
-    $('input[name="username"]').val(getCookie("user_login"));//用户名
-
-    //登录时的错误信息
-    var $loginError = getCookie("login_error");
-    if ($loginError) {
-        if ($loginError == "uername_or_pwd_error") {
-            $('#login_error').html("<font color='red'>用户名或密码错误</font>");
-        } else if ($loginError == "username_not_exists") {
-            $('#login_error').html("<font color='red'>用户名不存在</font>");
-        } else if ($loginError == "entry_rand") {
-            $('#login_error').html("<font color='red'>请输入验证码</font>");
-        } else if ($loginError == "rand_error") {
-            $('#login_error').html("<font color='red'>验证码错误</font>");
-        } else if ($loginError == "sys_error") {
-            $('#login_error').html("<font color='red'>系统繁忙,请稍后再试!</font>");
-        }
-        delCookie("login_error");
-    }
+    // //获取cookie,赋值
+    // $('input[name="username"]').val(getCookie("user_login"));//用户名
+    //
+    // //登录时的错误信息
+    // var $loginError = getCookie("login_error");
+    // if ($loginError) {
+    //     if ($loginError == "uername_or_pwd_error") {
+    //         $('#login_error').html("<font color='red'>用户名或密码错误</font>");
+    //     } else if ($loginError == "username_not_exists") {
+    //         $('#login_error').html("<font color='red'>用户名不存在</font>");
+    //     } else if ($loginError == "entry_rand") {
+    //         $('#login_error').html("<font color='red'>请输入验证码</font>");
+    //     } else if ($loginError == "rand_error") {
+    //         $('#login_error').html("<font color='red'>验证码错误</font>");
+    //     } else if ($loginError == "sys_error") {
+    //         $('#login_error').html("<font color='red'>系统繁忙,请稍后再试!</font>");
+    //     }
+    //     delCookie("login_error");
+    // }
 
     //验证码
     $('.validcode,.changecode').bind('click', function () {
@@ -97,12 +97,13 @@ $(function () {
         } else if ($username.length > 16 || $username.length < 2) {
             $('#login_error').html("<font color='red'>用户名错误</font>");
             return;
-        } else {
-            //删除cookie
-            delCookie("user_login");
-            //设置cookie
-            addCookie("user_login", $username, 24 * 7);
         }
+        // else {
+            // //删除cookie
+            // delCookie("user_login");
+            // //设置cookie
+            // addCookie("user_login", $username, 24 * 7);
+        // }
 
         if (!$password) {
             $('#login_error').html("<font color='red'>请输入用户名和密码</font>");
@@ -112,6 +113,19 @@ $(function () {
             return;
         }
 
+        //零时
+        if($username=="shengchan"&&$password=="shengchan") {
+            window.location.href= "company_home.html";
+        }else if($username=="shengchan") {
+            $('#login_error').html("<font color='red'>密码错误</font>");
+            return;
+        }else {
+            $('#login_error').html("<font color='red'>用户名错误</font>");
+            return;
+        }
+
+
+
         if ($('#rand').length) {
             var $rand = $('#rand').val();
             if (!$rand) {
@@ -119,7 +133,7 @@ $(function () {
                 return;
             }
         }
-        $("#loginForm").submit();
+        // $("#loginForm").submit();
     });
 
     //按回车键,提交表单

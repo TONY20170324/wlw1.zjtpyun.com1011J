@@ -1,8 +1,4 @@
 /**
- * Copyright(c) 2004-2015,浙江托普仪器有限公司
- *  <BR>All rights reserved
- *  <BR>摘    要：
- *  <BR>作    者：徐洪昌
  *  <BR>日    期：15-1-26 上午10:39
  */
 
@@ -26,6 +22,7 @@ function getCookie(objName){
         var temp = arrStr[i].split("=");
         if(temp[0] == objName) return unescape(temp[1]);
     }
+
 }
 //为了删除指定名称的cookie，可以将其过期时间设定为一个过去的时间
 function delCookie(name){
